@@ -9,10 +9,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "" "objViewer_autogen/timestamp" "custom" "objViewer_autogen/deps"
+  "/opt/blackholecpp/glwidget/glbasicwidget.cpp" "CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o" "gcc" "CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o.d"
   "/opt/blackholecpp/glwidget/glcirclewidget.cpp" "CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o" "gcc" "CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o.d"
   "/opt/blackholecpp/main.cpp" "CMakeFiles/objViewer.dir/main.cpp.o" "gcc" "CMakeFiles/objViewer.dir/main.cpp.o.d"
+  "/opt/blackholecpp/mainwindow.cpp" "CMakeFiles/objViewer.dir/mainwindow.cpp.o" "gcc" "CMakeFiles/objViewer.dir/mainwindow.cpp.o.d"
   "/opt/blackholecpp/build/objViewer_autogen/mocs_compilation.cpp" "CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o.d"
   "/opt/blackholecpp/build/qrc_shaders.cpp" "CMakeFiles/objViewer.dir/qrc_shaders.cpp.o" "gcc" "CMakeFiles/objViewer.dir/qrc_shaders.cpp.o.d"
+  "/opt/blackholecpp/tabs/basiccontrolpanel.cpp" "CMakeFiles/objViewer.dir/tabs/basiccontrolpanel.cpp.o" "gcc" "CMakeFiles/objViewer.dir/tabs/basiccontrolpanel.cpp.o.d"
   "/opt/blackholecpp/tabs/controlpanel.cpp" "CMakeFiles/objViewer.dir/tabs/controlpanel.cpp.o" "gcc" "CMakeFiles/objViewer.dir/tabs/controlpanel.cpp.o.d"
   )
 

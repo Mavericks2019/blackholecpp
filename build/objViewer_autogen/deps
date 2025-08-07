@@ -4,10 +4,16 @@ objViewer_autogen/timestamp: \
 	/opt/blackholecpp/build/CMakeFiles/3.28.3/CMakeCXXCompiler.cmake \
 	/opt/blackholecpp/build/CMakeFiles/3.28.3/CMakeSystem.cmake \
 	/opt/blackholecpp/build/objViewer_autogen/moc_predefs.h \
+	/opt/blackholecpp/glwidget/glbasicwidget.cpp \
+	/opt/blackholecpp/glwidget/glbasicwidget.h \
 	/opt/blackholecpp/glwidget/glcirclewidget.cpp \
 	/opt/blackholecpp/glwidget/glcirclewidget.h \
 	/opt/blackholecpp/main.cpp \
+	/opt/blackholecpp/mainwindow.cpp \
+	/opt/blackholecpp/mainwindow.h \
 	/opt/blackholecpp/shaders.qrc \
+	/opt/blackholecpp/tabs/basiccontrolpanel.cpp \
+	/opt/blackholecpp/tabs/basiccontrolpanel.h \
 	/opt/blackholecpp/tabs/controlpanel.cpp \
 	/opt/blackholecpp/tabs/controlpanel.h \
 	/usr/include/GL/gl.h \
@@ -277,6 +283,7 @@ objViewer_autogen/timestamp: \
 	/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
 	/usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
 	/usr/include/x86_64-linux-gnu/gnu/stubs.h \
+	/usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
 	/usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
 	/usr/include/x86_64-linux-gnu/qt5/QtCore/QPoint \
 	/usr/include/x86_64-linux-gnu/qt5/QtCore/QScopedPointer \
@@ -402,16 +409,24 @@ objViewer_autogen/timestamp: \
 	/usr/include/x86_64-linux-gnu/qt5/QtGui/qvector4d.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QFrame \
+	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGroupBox \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
+	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QOpenGLWidget \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
+	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStackedWidget \
+	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTabWidget \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
+	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgroupbox.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
+	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qopenglwidget.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstackedwidget.h \
+	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgets-config.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
 	/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \

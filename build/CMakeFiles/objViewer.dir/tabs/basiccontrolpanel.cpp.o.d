@@ -1,7 +1,8 @@
-CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp \
- /usr/include/stdc-predef.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h \
+CMakeFiles/objViewer.dir/tabs/basiccontrolpanel.cpp.o: \
+ /opt/blackholecpp/tabs/basiccontrolpanel.cpp /usr/include/stdc-predef.h \
+ /opt/blackholecpp/tabs/basiccontrolpanel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QFrame \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qglobal.h \
@@ -102,12 +103,16 @@ CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qversiontagging.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qtgui-config.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgets-config.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qobjectdefs.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qnamespace.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qobject.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qchar.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearray.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qrefcount.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qnamespace.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qarraydata.h \
  /usr/include/string.h /usr/include/strings.h \
  /usr/include/c++/13/stdlib.h \
@@ -189,9 +194,6 @@ CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringliteral.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringalgorithms.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringview.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qobject.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qobjectdefs.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qalgorithms.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qiterator.h \
@@ -242,26 +244,11 @@ CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp \
  /usr/include/c++/13/ratio /usr/include/c++/13/cstdint \
  /usr/include/c++/13/limits /usr/include/c++/13/ctime \
  /usr/include/c++/13/bits/parse_numbers.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qpoint.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qsize.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qmargins.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qcursor.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qguiapplication.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qinputmethod.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qlocale.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qmap.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qhash.h \
- /usr/include/c++/13/variant \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qshareddata.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpaintdevice.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qrect.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qsize.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qpoint.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpalette.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qcolor.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qrgb.h \
@@ -278,6 +265,8 @@ CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixelformat.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qsharedpointer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qshareddata.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qhash.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
  /usr/include/c++/13/memory \
  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
@@ -292,131 +281,21 @@ CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontmetrics.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontinfo.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qcursor.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qkeysequence.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGroupBox \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgroupbox.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QVBoxLayout \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayout.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QHBoxLayout \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QSlider \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qslider.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractslider.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QColorDialog \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcolordialog.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdialog.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QFrame \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGroupBox \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgroupbox.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTabWidget \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStackedWidget \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstackedwidget.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMessageBox \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmessagebox.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QOpenGLWidget \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qopenglwidget.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QSurfaceFormat \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qsurfaceformat.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopengl.h /usr/include/GL/gl.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglext.h \
- /usr/include/inttypes.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QSurfaceFormat \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QMouseEvent \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qevent.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qset.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector2d.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qtouchdevice.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QTextStream \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qtextstream.h \
- /usr/include/c++/13/cmath /usr/include/math.h \
- /usr/include/x86_64-linux-gnu/bits/math-vector.h \
- /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
- /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
- /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
- /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
- /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /usr/include/c++/13/bits/specfun.h /usr/include/c++/13/tr1/gamma.tcc \
- /usr/include/c++/13/tr1/special_function_util.h \
- /usr/include/c++/13/tr1/bessel_function.tcc \
- /usr/include/c++/13/tr1/beta_function.tcc \
- /usr/include/c++/13/tr1/ell_integral.tcc \
- /usr/include/c++/13/tr1/exp_integral.tcc \
- /usr/include/c++/13/tr1/hypergeometric.tcc \
- /usr/include/c++/13/tr1/legendre_function.tcc \
- /usr/include/c++/13/tr1/modified_bessel_func.tcc \
- /usr/include/c++/13/tr1/poly_hermite.tcc \
- /usr/include/c++/13/tr1/poly_laguerre.tcc \
- /usr/include/c++/13/tr1/riemann_zeta.tcc /usr/include/c++/13/iostream \
- /usr/include/c++/13/ostream /usr/include/c++/13/ios \
- /usr/include/c++/13/bits/basic_ios.h \
- /usr/include/c++/13/bits/locale_facets.h /usr/include/c++/13/cwctype \
- /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h \
- /usr/include/c++/13/bits/locale_facets.tcc \
- /usr/include/c++/13/bits/basic_ios.tcc \
- /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
- /usr/include/c++/13/bits/istream.tcc /opt/blackholecpp/mainwindow.h \
- /opt/blackholecpp/glwidget/glbasicwidget.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLShaderProgram \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglshaderprogram.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector4d.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qmatrix4x4.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qquaternion.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qgenericmatrix.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qtextstream.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qcontiguouscache.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLBuffer \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglbuffer.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLVertexArrayObject \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglvertexarrayobject.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qobject.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFunctions_4_3_Core \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglfunctions_4_3_core.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLVersionFunctions \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglversionfunctions.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglcontext.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QScopedPointer \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qscopedpointer.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglversionfunctions.h \
- /opt/blackholecpp/glwidget/glcirclewidget.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLTexture \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopengltexture.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector2D \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector2d.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector4D \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector4d.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QPoint \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qpoint.h \
- /opt/blackholecpp/tabs/basiccontrolpanel.h \
- /opt/blackholecpp/tabs/controlpanel.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QHBoxLayout

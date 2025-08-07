@@ -148,9 +148,27 @@
 	"HEADERS" : 
 	[
 		[
+			"/opt/blackholecpp/glwidget/glbasicwidget.h",
+			"MU",
+			"KTNQVRIVIS/moc_glbasicwidget.cpp",
+			null
+		],
+		[
 			"/opt/blackholecpp/glwidget/glcirclewidget.h",
 			"MU",
 			"KTNQVRIVIS/moc_glcirclewidget.cpp",
+			null
+		],
+		[
+			"/opt/blackholecpp/mainwindow.h",
+			"MU",
+			"EWIEGA46WW/moc_mainwindow.cpp",
+			null
+		],
+		[
+			"/opt/blackholecpp/tabs/basiccontrolpanel.h",
+			"MU",
+			"GEPDHEUI4U/moc_basiccontrolpanel.cpp",
 			null
 		],
 		[
@@ -223,8 +241,11 @@
 	"SETTINGS_FILE" : "/opt/blackholecpp/build/CMakeFiles/objViewer_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[ "/opt/blackholecpp/glwidget/glbasicwidget.cpp", "MU", null ],
 		[ "/opt/blackholecpp/glwidget/glcirclewidget.cpp", "MU", null ],
 		[ "/opt/blackholecpp/main.cpp", "MU", null ],
+		[ "/opt/blackholecpp/mainwindow.cpp", "MU", null ],
+		[ "/opt/blackholecpp/tabs/basiccontrolpanel.cpp", "MU", null ],
 		[ "/opt/blackholecpp/tabs/controlpanel.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],

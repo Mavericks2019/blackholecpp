@@ -1,7 +1,7 @@
 CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o: \
  /opt/blackholecpp/build/objViewer_autogen/mocs_compilation.cpp \
  /usr/include/stdc-predef.h \
- /opt/blackholecpp/build/objViewer_autogen/KTNQVRIVIS/moc_glcirclewidget.cpp \
+ /opt/blackholecpp/build/objViewer_autogen/KTNQVRIVIS/moc_glbasicwidget.cpp \
  /usr/include/c++/13/memory /usr/include/c++/13/bits/memoryfwd.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -116,7 +116,7 @@ CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o: \
  /usr/include/c++/13/backward/auto_ptr.h \
  /usr/include/c++/13/pstl/glue_memory_defs.h \
  /usr/include/c++/13/pstl/execution_defs.h \
- /opt/blackholecpp/build/objViewer_autogen/KTNQVRIVIS/../../../glwidget/glcirclewidget.h \
+ /opt/blackholecpp/build/objViewer_autogen/KTNQVRIVIS/../../../glwidget/glbasicwidget.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QOpenGLWidget \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qopenglwidget.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
@@ -307,10 +307,6 @@ CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o: \
  /usr/include/c++/13/variant \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qset.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcontiguouscache.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLTexture \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopengltexture.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QScopedPointer \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qscopedpointer.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLBuffer \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglbuffer.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLVertexArrayObject \
@@ -322,18 +318,26 @@ CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLVersionFunctions \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglversionfunctions.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglcontext.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QScopedPointer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qscopedpointer.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglversionfunctions.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
+ /opt/blackholecpp/build/objViewer_autogen/KTNQVRIVIS/moc_glcirclewidget.cpp \
+ /opt/blackholecpp/build/objViewer_autogen/KTNQVRIVIS/../../../glwidget/glcirclewidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLTexture \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qopengltexture.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QSurfaceFormat \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QMouseEvent \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qevent.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qtouchdevice.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector2D \
@@ -342,15 +346,32 @@ CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector4d.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QPoint \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qpoint.h \
- /opt/blackholecpp/build/objViewer_autogen/GEPDHEUI4U/moc_controlpanel.cpp \
- /opt/blackholecpp/build/objViewer_autogen/GEPDHEUI4U/../../../tabs/controlpanel.h \
+ /opt/blackholecpp/build/objViewer_autogen/EWIEGA46WW/moc_mainwindow.cpp \
+ /opt/blackholecpp/build/objViewer_autogen/EWIEGA46WW/../../../mainwindow.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTabWidget \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStackedWidget \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstackedwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
+ /opt/blackholecpp/build/objViewer_autogen/EWIEGA46WW/../../../glwidget/glbasicwidget.h \
+ /opt/blackholecpp/build/objViewer_autogen/EWIEGA46WW/../../../glwidget/glcirclewidget.h \
+ /opt/blackholecpp/build/objViewer_autogen/EWIEGA46WW/../../../tabs/basiccontrolpanel.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QFrame \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGroupBox \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgroupbox.h \
+ /opt/blackholecpp/build/objViewer_autogen/EWIEGA46WW/../../../tabs/controlpanel.h \
+ /opt/blackholecpp/build/objViewer_autogen/GEPDHEUI4U/moc_basiccontrolpanel.cpp \
+ /opt/blackholecpp/build/objViewer_autogen/GEPDHEUI4U/../../../tabs/basiccontrolpanel.h \
+ /opt/blackholecpp/build/objViewer_autogen/GEPDHEUI4U/moc_controlpanel.cpp \
+ /opt/blackholecpp/build/objViewer_autogen/GEPDHEUI4U/../../../tabs/controlpanel.h

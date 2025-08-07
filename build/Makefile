@@ -200,6 +200,30 @@ objViewer_autogen/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer_autogen.dir/build.make CMakeFiles/objViewer_autogen.dir/build
 .PHONY : objViewer_autogen/fast
 
+glwidget/glbasicwidget.o: glwidget/glbasicwidget.cpp.o
+.PHONY : glwidget/glbasicwidget.o
+
+# target to build an object file
+glwidget/glbasicwidget.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o
+.PHONY : glwidget/glbasicwidget.cpp.o
+
+glwidget/glbasicwidget.i: glwidget/glbasicwidget.cpp.i
+.PHONY : glwidget/glbasicwidget.i
+
+# target to preprocess a source file
+glwidget/glbasicwidget.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.i
+.PHONY : glwidget/glbasicwidget.cpp.i
+
+glwidget/glbasicwidget.s: glwidget/glbasicwidget.cpp.s
+.PHONY : glwidget/glbasicwidget.s
+
+# target to generate assembly for a file
+glwidget/glbasicwidget.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.s
+.PHONY : glwidget/glbasicwidget.cpp.s
+
 glwidget/glcirclewidget.o: glwidget/glcirclewidget.cpp.o
 .PHONY : glwidget/glcirclewidget.o
 
@@ -247,6 +271,30 @@ main.s: main.cpp.s
 main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+mainwindow.o: mainwindow.cpp.o
+.PHONY : mainwindow.o
+
+# target to build an object file
+mainwindow.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/mainwindow.cpp.o
+.PHONY : mainwindow.cpp.o
+
+mainwindow.i: mainwindow.cpp.i
+.PHONY : mainwindow.i
+
+# target to preprocess a source file
+mainwindow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/mainwindow.cpp.i
+.PHONY : mainwindow.cpp.i
+
+mainwindow.s: mainwindow.cpp.s
+.PHONY : mainwindow.s
+
+# target to generate assembly for a file
+mainwindow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/mainwindow.cpp.s
+.PHONY : mainwindow.cpp.s
 
 objViewer_autogen/mocs_compilation.o: objViewer_autogen/mocs_compilation.cpp.o
 .PHONY : objViewer_autogen/mocs_compilation.o
@@ -296,6 +344,30 @@ qrc_shaders.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/qrc_shaders.cpp.s
 .PHONY : qrc_shaders.cpp.s
 
+tabs/basiccontrolpanel.o: tabs/basiccontrolpanel.cpp.o
+.PHONY : tabs/basiccontrolpanel.o
+
+# target to build an object file
+tabs/basiccontrolpanel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/tabs/basiccontrolpanel.cpp.o
+.PHONY : tabs/basiccontrolpanel.cpp.o
+
+tabs/basiccontrolpanel.i: tabs/basiccontrolpanel.cpp.i
+.PHONY : tabs/basiccontrolpanel.i
+
+# target to preprocess a source file
+tabs/basiccontrolpanel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/tabs/basiccontrolpanel.cpp.i
+.PHONY : tabs/basiccontrolpanel.cpp.i
+
+tabs/basiccontrolpanel.s: tabs/basiccontrolpanel.cpp.s
+.PHONY : tabs/basiccontrolpanel.s
+
+# target to generate assembly for a file
+tabs/basiccontrolpanel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/tabs/basiccontrolpanel.cpp.s
+.PHONY : tabs/basiccontrolpanel.cpp.s
+
 tabs/controlpanel.o: tabs/controlpanel.cpp.o
 .PHONY : tabs/controlpanel.o
 
@@ -335,18 +407,27 @@ help:
 	@echo "... objViewer_autogen"
 	@echo "... objViewer_autogen_timestamp_deps"
 	@echo "... objViewer"
+	@echo "... glwidget/glbasicwidget.o"
+	@echo "... glwidget/glbasicwidget.i"
+	@echo "... glwidget/glbasicwidget.s"
 	@echo "... glwidget/glcirclewidget.o"
 	@echo "... glwidget/glcirclewidget.i"
 	@echo "... glwidget/glcirclewidget.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... mainwindow.o"
+	@echo "... mainwindow.i"
+	@echo "... mainwindow.s"
 	@echo "... objViewer_autogen/mocs_compilation.o"
 	@echo "... objViewer_autogen/mocs_compilation.i"
 	@echo "... objViewer_autogen/mocs_compilation.s"
 	@echo "... qrc_shaders.o"
 	@echo "... qrc_shaders.i"
 	@echo "... qrc_shaders.s"
+	@echo "... tabs/basiccontrolpanel.o"
+	@echo "... tabs/basiccontrolpanel.i"
+	@echo "... tabs/basiccontrolpanel.s"
 	@echo "... tabs/controlpanel.o"
 	@echo "... tabs/controlpanel.i"
 	@echo "... tabs/controlpanel.s"

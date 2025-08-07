@@ -3,5 +3,7 @@
 <qresource>
     <file>shaders/circle.frag</file>
     <file>shaders/circle.vert</file>
+    <file>shaders/basic.frag</file>
+    <file>shaders/basic.vert</file>
 </qresource>
 </RCC>

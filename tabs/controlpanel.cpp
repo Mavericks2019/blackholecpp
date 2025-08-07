@@ -10,10 +10,11 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->setSpacing(15);
-    layout->setContentsMargins(15, 15, 15, 15);
+    layout->setContentsMargins(20, 20, 20, 20); // 增加边距
     
     // Title
     QLabel* titleLabel = new QLabel("OpenGL Black Hole Controls");
+    titleLabel->setObjectName("titleLabel"); // 添加对象名称
     titleLabel->setAlignment(Qt::AlignCenter);
     layout->addWidget(titleLabel);
     
@@ -21,13 +22,16 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     QFrame* separator = new QFrame();
     separator->setFrameShape(QFrame::HLine);
     separator->setFrameShadow(QFrame::Sunken);
+    separator->setFixedHeight(2);
     layout->addWidget(separator);
     
     // Background type group
     QGroupBox* bgGroup = new QGroupBox("Background Type");
     QVBoxLayout* bgLayout = new QVBoxLayout(bgGroup);
+    bgLayout->setContentsMargins(10, 15, 10, 15); // 增加内边距
     
     QHBoxLayout* btnLayout = new QHBoxLayout();
+    btnLayout->setSpacing(10); // 增加按钮间距
     bgLayout->addLayout(btnLayout);
     
     bgChessBtn = createBgButton("Chess", 0);
@@ -42,12 +46,13 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     
     layout->addWidget(bgGroup);
     
-    // Stretch
-    layout->addStretch(1);
+    // 添加间距
+    layout->addSpacing(20);
     
     // Aspect ratio group
     QGroupBox* ratioGroup = new QGroupBox("Aspect Ratio");
     QVBoxLayout* ratioLayout = new QVBoxLayout(ratioGroup);
+    ratioLayout->setContentsMargins(10, 15, 10, 15); // 增加内边距
     
     ratioLabel = new QLabel("Current: 1.00");
     ratioLabel->setAlignment(Qt::AlignCenter);
@@ -55,18 +60,24 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     
     QLabel* ratioInfo = new QLabel("To maintain circle shape:\nWidth : Height = 1 : 1");
     ratioInfo->setAlignment(Qt::AlignCenter);
+    ratioInfo->setMargin(10); // 增加文本边距
     ratioLayout->addWidget(ratioInfo);
     
     layout->addWidget(ratioGroup);
     
+    // 添加拉伸因子
+    layout->addStretch(1);
+    
     // Footer
     QLabel* footer = new QLabel("© 2023 OpenGL Qt5 Demo | Dark Theme | MSAA Enabled");
     footer->setAlignment(Qt::AlignCenter);
+    footer->setStyleSheet("color: #9090a0; font-size: 10px; margin-top: 20px;");
     layout->addWidget(footer);
 }
 
 QPushButton* ControlPanel::createBgButton(const QString& text, int type) {
     QPushButton* btn = new QPushButton(text);
+    btn->setObjectName(QString("bgBtn_%1").arg(type)); // 添加对象名称
     btn->setCheckable(true);
     btn->setFixedHeight(30);
     connect(btn, &QPushButton::clicked, this, [this, type]() {
