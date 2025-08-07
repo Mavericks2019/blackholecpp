@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+    <file>shaders/circle.frag</file>
+    <file>shaders/circle.vert</file>
+</qresource>
+</RCC>

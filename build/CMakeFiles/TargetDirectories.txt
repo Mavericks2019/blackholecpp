@@ -1,0 +1,9 @@
+/opt/blackholecpp/build/CMakeFiles/objViewer.dir
+/opt/blackholecpp/build/CMakeFiles/edit_cache.dir
+/opt/blackholecpp/build/CMakeFiles/rebuild_cache.dir
+/opt/blackholecpp/build/CMakeFiles/list_install_components.dir
+/opt/blackholecpp/build/CMakeFiles/install.dir
+/opt/blackholecpp/build/CMakeFiles/install/local.dir
+/opt/blackholecpp/build/CMakeFiles/install/strip.dir
+/opt/blackholecpp/build/CMakeFiles/objViewer_autogen_timestamp_deps.dir
+/opt/blackholecpp/build/CMakeFiles/objViewer_autogen.dir
