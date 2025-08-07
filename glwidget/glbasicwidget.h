@@ -8,6 +8,7 @@
 #include <QOpenGLFunctions_4_3_Core>
 #include <QTimer>
 #include <QFile>
+#include <chrono> // 添加高精度时间库
 
 class GLBasicWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_3_Core {
     Q_OBJECT
@@ -25,9 +26,10 @@ private:
     QOpenGLVertexArrayObject vao;
     QOpenGLBuffer vbo;
     QTimer* timer = nullptr;
-    float startTime = 0.0f;
+    
+    // 使用高精度时间点
+    std::chrono::high_resolution_clock::time_point startTime;
     
     bool loadShader(QOpenGLShader::ShaderType type, const QString& filePath);
 };
-
 #endif // GLBASICWIDGET_H

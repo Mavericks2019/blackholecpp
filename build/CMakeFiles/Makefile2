@@ -80,8 +80,8 @@ clean: CMakeFiles/objViewer_autogen.dir/clean
 # Target rules for target CMakeFiles/objViewer.dir
 
 # All Build rule for target.
-CMakeFiles/objViewer.dir/all: CMakeFiles/objViewer_autogen_timestamp_deps.dir/all
 CMakeFiles/objViewer.dir/all: CMakeFiles/objViewer_autogen.dir/all
+CMakeFiles/objViewer.dir/all: CMakeFiles/objViewer_autogen_timestamp_deps.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target objViewer"

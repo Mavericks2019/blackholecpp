@@ -3,7 +3,8 @@
 #include <cmath>
 #include <QDateTime>
 #include <QOpenGLFunctions_4_3_Core>
-#include <QFileInfo>  // 添加文件信息头文件
+#include <QFileInfo>
+#include <chrono> // 添加高精度时间库
 
 GLBasicWidget::GLBasicWidget(QWidget* parent) : QOpenGLWidget(parent) {
     setMinimumSize(600, 600);
@@ -18,7 +19,8 @@ GLBasicWidget::GLBasicWidget(QWidget* parent) : QOpenGLWidget(parent) {
     connect(timer, &QTimer::timeout, this, [this]() { update(); });
     timer->start(16); // ~60 FPS
     
-    startTime = QDateTime::currentMSecsSinceEpoch() / 1000.0f;
+    // 使用高精度时钟
+    startTime = std::chrono::high_resolution_clock::now();
 }
 
 GLBasicWidget::~GLBasicWidget() {
@@ -133,16 +135,13 @@ void GLBasicWidget::paintGL() {
     program->bind();
     vao.bind();
     
+    // 使用高精度时间计算 - 修复精度问题
+    auto now = std::chrono::high_resolution_clock::now();
+    float elapsedTime = std::chrono::duration<float>(now - startTime).count();
+    
     // 设置统一变量
-    float elapsedTime = QDateTime::currentMSecsSinceEpoch() / 1000.0f - startTime;
     program->setUniformValue("iTime", elapsedTime);
     program->setUniformValue("iResolution", QVector2D(width(), height()));
-    
-    // 打印调试信息
-    static int frameCount = 0;
-    if (frameCount++ % 60 == 0) {
-        qDebug() << "Painting at time:" << elapsedTime << "Resolution:" << width() << "x" << height();
-    }
     
     // 绘制全屏矩形
     glDrawArrays(GL_TRIANGLES, 0, 6);
