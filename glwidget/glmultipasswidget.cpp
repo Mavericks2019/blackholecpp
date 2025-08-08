@@ -5,7 +5,8 @@
 #include <QDateTime>
 #include <iostream>
 
-GLMultiPassWidget::GLMultiPassWidget(QWidget *parent) : QOpenGLWidget(parent)
+GLMultiPassWidget::GLMultiPassWidget(QWidget *parent) : QOpenGLWidget(parent),
+    m_vbo(QOpenGLBuffer::VertexBuffer)
 {
     setMinimumSize(600, 400);
 }
@@ -14,11 +15,11 @@ GLMultiPassWidget::~GLMultiPassWidget()
 {
     // 清理资源
     makeCurrent();
-    if (m_quadVBO) glDeleteBuffers(1, &m_quadVBO);
-    if (m_quadVAO) glDeleteVertexArrays(1, &m_quadVAO);
     delete m_circleProgram;
     delete m_compositeProgram;
     delete m_fbo;
+    m_vao.destroy();
+    m_vbo.destroy();
     doneCurrent();
 }
 
@@ -93,12 +94,13 @@ void GLMultiPassWidget::initializeGL()
          1.0f,  1.0f,  1.0f, 1.0f
     };
 
-    // 创建VAO和VBO
-    glGenVertexArrays(1, &m_quadVAO);
-    glGenBuffers(1, &m_quadVBO);
-    glBindVertexArray(m_quadVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_quadVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+    // 创建并绑定VAO和VBO
+    m_vao.create();
+    m_vao.bind();
+
+    m_vbo.create();
+    m_vbo.bind();
+    m_vbo.allocate(quadVertices, sizeof(quadVertices));
     
     // 位置属性
     glEnableVertexAttribArray(0);
@@ -108,7 +110,8 @@ void GLMultiPassWidget::initializeGL()
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
     
-    glBindVertexArray(0);
+    m_vao.release();
+    m_vbo.release();
 }
 
 void GLMultiPassWidget::resizeGL(int w, int h)
@@ -133,7 +136,7 @@ void GLMultiPassWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT);
     
     m_circleProgram->bind();
-    glBindVertexArray(m_quadVAO);
+    m_vao.bind();
     
     // 设置圆形参数
     m_circleProgram->setUniformValue("center", QVector2D(width()/2.0f, height()/2.0f));
@@ -141,6 +144,7 @@ void GLMultiPassWidget::paintGL()
     m_circleProgram->setUniformValue("circleColor", QVector3D(0.8f, 0.2f, 0.2f)); // 红色
     
     glDrawArrays(GL_TRIANGLES, 0, 6);
+    m_vao.release();
     
     // 第二通道: 渲染到屏幕并合成
     m_fbo->release();
@@ -149,7 +153,7 @@ void GLMultiPassWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT);
     
     m_compositeProgram->bind();
-    glBindVertexArray(m_quadVAO);
+    m_vao.bind();
     
     // 绑定圆形纹理
     glActiveTexture(GL_TEXTURE0);
@@ -162,6 +166,7 @@ void GLMultiPassWidget::paintGL()
     m_compositeProgram->setUniformValue("rectSize", QVector2D(0.3f, 0.3f));
     
     glDrawArrays(GL_TRIANGLES, 0, 6);
+    m_vao.release();
     
     // 使用QPainter绘制文本
     QPainter painter(this);

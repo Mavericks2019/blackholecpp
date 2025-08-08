@@ -26,8 +26,8 @@ private:
     QOpenGLShaderProgram *m_circleProgram = nullptr;
     QOpenGLShaderProgram *m_compositeProgram = nullptr;
     QOpenGLFramebufferObject *m_fbo = nullptr;
-    GLuint m_quadVAO = 0;
-    GLuint m_quadVBO = 0;
+    QOpenGLVertexArrayObject m_vao;
+    QOpenGLBuffer m_vbo;
 };
 
 #endif // GLMULTIPASSWIDGET_H
