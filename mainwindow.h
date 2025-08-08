@@ -6,8 +6,10 @@
 #include <QStackedWidget>
 #include "glwidget/glbasicwidget.h"
 #include "glwidget/glcirclewidget.h"  // 包含Black Hole的OpenGL控件
+#include "glwidget/glmultipasswidget.h"
 #include "tabs/basiccontrolpanel.h"
 #include "tabs/controlpanel.h"  // 包含Black Hole的控制面板
+#include "tabs/multipasscontrolpanel.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -41,6 +43,9 @@ private:
     // Black Hole Demo
     GLCircleWidget* circleCanvas;
     ControlPanel* circleControl;
+
+    GLMultiPassWidget* multiPassCanvas = nullptr;
+    MultiPassControlPanel* multiPassControl = nullptr;
 };
 
 #endif // MAINWINDOW_H

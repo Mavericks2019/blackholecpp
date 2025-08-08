@@ -33,10 +33,13 @@ int main(int argc, char* argv[]) {
     
     // 检查着色器文件
     QStringList shaderFiles = {
-        "../shaders/basic.frag",
-        "../shaders/basic.vert",
-        "../shaders/circle.frag",
-        "../shaders/circle.vert"
+        ":/shaders/basic.frag",
+        ":/shaders/basic.vert",
+        ":/shaders/circle.frag",
+        ":/shaders/circle.vert",
+        ":/shaders/multipass.vert",
+        ":/shaders/multipass_circle.frag",
+        ":/shaders/multipass_composite.frag" 
     };
     
     QStringList missingFiles;

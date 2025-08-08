@@ -39,13 +39,18 @@ include(${CGAL_USE_FILE})
 add_executable(${PROJECT_NAME}
     tabs/controlpanel.h
     tabs/basiccontrolpanel.h
+    tabs/multipasscontrolpanel.h
     glwidget/glcirclewidget.h
     glwidget/glbasicwidget.h
+    glwidget/glmultipasswidget.h
 
     tabs/controlpanel.cpp
     tabs/basiccontrolpanel.cpp
+    tabs/multipasscontrolpanel.cpp
     glwidget/glcirclewidget.cpp
     glwidget/glbasicwidget.cpp
+    glwidget/glmultipasswidget.cpp
+
     mainwindow.cpp
     mainwindow.h
     main.cpp

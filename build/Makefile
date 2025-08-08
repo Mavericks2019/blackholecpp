@@ -248,6 +248,30 @@ glwidget/glcirclewidget.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.s
 .PHONY : glwidget/glcirclewidget.cpp.s
 
+glwidget/glmultipasswidget.o: glwidget/glmultipasswidget.cpp.o
+.PHONY : glwidget/glmultipasswidget.o
+
+# target to build an object file
+glwidget/glmultipasswidget.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.o
+.PHONY : glwidget/glmultipasswidget.cpp.o
+
+glwidget/glmultipasswidget.i: glwidget/glmultipasswidget.cpp.i
+.PHONY : glwidget/glmultipasswidget.i
+
+# target to preprocess a source file
+glwidget/glmultipasswidget.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.i
+.PHONY : glwidget/glmultipasswidget.cpp.i
+
+glwidget/glmultipasswidget.s: glwidget/glmultipasswidget.cpp.s
+.PHONY : glwidget/glmultipasswidget.s
+
+# target to generate assembly for a file
+glwidget/glmultipasswidget.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.s
+.PHONY : glwidget/glmultipasswidget.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -392,6 +416,30 @@ tabs/controlpanel.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/tabs/controlpanel.cpp.s
 .PHONY : tabs/controlpanel.cpp.s
 
+tabs/multipasscontrolpanel.o: tabs/multipasscontrolpanel.cpp.o
+.PHONY : tabs/multipasscontrolpanel.o
+
+# target to build an object file
+tabs/multipasscontrolpanel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.o
+.PHONY : tabs/multipasscontrolpanel.cpp.o
+
+tabs/multipasscontrolpanel.i: tabs/multipasscontrolpanel.cpp.i
+.PHONY : tabs/multipasscontrolpanel.i
+
+# target to preprocess a source file
+tabs/multipasscontrolpanel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.i
+.PHONY : tabs/multipasscontrolpanel.cpp.i
+
+tabs/multipasscontrolpanel.s: tabs/multipasscontrolpanel.cpp.s
+.PHONY : tabs/multipasscontrolpanel.s
+
+# target to generate assembly for a file
+tabs/multipasscontrolpanel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/objViewer.dir/build.make CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.s
+.PHONY : tabs/multipasscontrolpanel.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -413,6 +461,9 @@ help:
 	@echo "... glwidget/glcirclewidget.o"
 	@echo "... glwidget/glcirclewidget.i"
 	@echo "... glwidget/glcirclewidget.s"
+	@echo "... glwidget/glmultipasswidget.o"
+	@echo "... glwidget/glmultipasswidget.i"
+	@echo "... glwidget/glmultipasswidget.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -431,6 +482,9 @@ help:
 	@echo "... tabs/controlpanel.o"
 	@echo "... tabs/controlpanel.i"
 	@echo "... tabs/controlpanel.s"
+	@echo "... tabs/multipasscontrolpanel.o"
+	@echo "... tabs/multipasscontrolpanel.i"
+	@echo "... tabs/multipasscontrolpanel.s"
 .PHONY : help
 
 

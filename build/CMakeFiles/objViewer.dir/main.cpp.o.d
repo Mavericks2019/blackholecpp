@@ -418,5 +418,11 @@ CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector4d.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QPoint \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qpoint.h \
+ /opt/blackholecpp/glwidget/glmultipasswidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFunctions_3_3_Core \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglfunctions_3_3_core.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFramebufferObject \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglframebufferobject.h \
  /opt/blackholecpp/tabs/basiccontrolpanel.h \
- /opt/blackholecpp/tabs/controlpanel.h
+ /opt/blackholecpp/tabs/controlpanel.h \
+ /opt/blackholecpp/tabs/multipasscontrolpanel.h

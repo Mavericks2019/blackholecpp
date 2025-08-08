@@ -124,7 +124,7 @@ void MainWindow::onTabChanged(int index) {
             if (circleCanvas) circleCanvas->update();
             break;
         case 2: // Multi-Pass
-            // 未来扩展
+             if (multiPassCanvas) multiPassCanvas->update(); // 添加这一行
             break;
     }
 }
@@ -165,7 +165,11 @@ void MainWindow::createTabs() {
     tabWidget->addTab(circleTab, "Black Hole Demo");
     
     // Multi-Pass Demo (索引2)
-    tabWidget->addTab(new QWidget(), "Multi-Pass Demo");
+    QWidget* multiPassTab = new QWidget();
+    QVBoxLayout* multiPassLayout = new QVBoxLayout(multiPassTab);
+    multiPassCanvas = new GLMultiPassWidget();
+    multiPassLayout->addWidget(multiPassCanvas);
+    tabWidget->addTab(multiPassTab, "Multi-Pass Demo");
 }
 
 void MainWindow::createControlPanels() {
@@ -178,7 +182,8 @@ void MainWindow::createControlPanels() {
     controlStack->addWidget(circleControl);
     
     // Multi-Pass控制面板 (索引2)
-    controlStack->addWidget(new QWidget());
+    multiPassControl = new MultiPassControlPanel();
+    controlStack->addWidget(multiPassControl);
 }
 
 void MainWindow::connectSignals() {
@@ -265,5 +270,10 @@ void MainWindow::applyStyles() {
     QLabel* circleFooter = circleControl->findChild<QLabel*>();
     if (circleFooter && circleFooter->text().contains("©")) {
         circleFooter->setStyleSheet("color: #9090a0; font-size: 10px; margin-top: 20px;");
+    }
+
+    QLabel* multiPassFooter = multiPassControl->findChild<QLabel*>();
+    if (multiPassFooter && multiPassFooter->text().contains("©")) {
+        multiPassFooter->setStyleSheet("color: #9090a0; font-size: 10px; margin-top: 20px;");
     }
 }

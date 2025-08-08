@@ -5,5 +5,8 @@
     <file>shaders/circle.vert</file>
     <file>shaders/basic.frag</file>
     <file>shaders/basic.vert</file>
+    <file>shaders/multipass.vert</file>
+    <file>shaders/multipass_circle.frag</file>
+    <file>shaders/multipass_composite.frag</file>
 </qresource>
 </RCC>

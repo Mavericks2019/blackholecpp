@@ -10,7 +10,7 @@ GLBasicWidget::GLBasicWidget(QWidget* parent) : QOpenGLWidget(parent) {
     setMinimumSize(600, 600);
     
     QSurfaceFormat fmt;
-    fmt.setSamples(4); // 4x MSAA
+    //fmt.setSamples(4); // 4x MSAA
     fmt.setVersion(4, 3);
     fmt.setProfile(QSurfaceFormat::CoreProfile);
     setFormat(fmt);
@@ -48,8 +48,8 @@ void GLBasicWidget::initializeGL() {
     program = new QOpenGLShaderProgram(this);
     
     // 检查着色器文件是否存在
-    QString vertPath = "../shaders/basic.vert";
-    QString fragPath = "../shaders/basic.frag";
+    QString vertPath = ":/shaders/basic.vert";
+    QString fragPath = ":/shaders/basic.frag";
     
     qDebug() << "Vertex shader path:" << QFileInfo(vertPath).absoluteFilePath();
     qDebug() << "Fragment shader path:" << QFileInfo(fragPath).absoluteFilePath();

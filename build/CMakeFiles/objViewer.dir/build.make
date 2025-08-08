@@ -74,6 +74,9 @@ qrc_shaders.cpp: /opt/blackholecpp/shaders/circle.frag
 qrc_shaders.cpp: /opt/blackholecpp/shaders/circle.vert
 qrc_shaders.cpp: /opt/blackholecpp/shaders/basic.frag
 qrc_shaders.cpp: /opt/blackholecpp/shaders/basic.vert
+qrc_shaders.cpp: /opt/blackholecpp/shaders/multipass.vert
+qrc_shaders.cpp: /opt/blackholecpp/shaders/multipass_circle.frag
+qrc_shaders.cpp: /opt/blackholecpp/shaders/multipass_composite.frag
 qrc_shaders.cpp: shaders.qrc.depends
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating qrc_shaders.cpp"
 	/usr/lib/qt5/bin/rcc --name shaders --output /opt/blackholecpp/build/qrc_shaders.cpp /opt/blackholecpp/shaders.qrc
@@ -127,10 +130,24 @@ CMakeFiles/objViewer.dir/tabs/basiccontrolpanel.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objViewer.dir/tabs/basiccontrolpanel.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /opt/blackholecpp/tabs/basiccontrolpanel.cpp -o CMakeFiles/objViewer.dir/tabs/basiccontrolpanel.cpp.s
 
+CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.o: CMakeFiles/objViewer.dir/flags.make
+CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.o: /opt/blackholecpp/tabs/multipasscontrolpanel.cpp
+CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.o: CMakeFiles/objViewer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.o -MF CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.o.d -o CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.o -c /opt/blackholecpp/tabs/multipasscontrolpanel.cpp
+
+CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /opt/blackholecpp/tabs/multipasscontrolpanel.cpp > CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.i
+
+CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /opt/blackholecpp/tabs/multipasscontrolpanel.cpp -o CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.s
+
 CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o: CMakeFiles/objViewer.dir/flags.make
 CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o: /opt/blackholecpp/glwidget/glcirclewidget.cpp
 CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o: CMakeFiles/objViewer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o -MF CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o.d -o CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o -c /opt/blackholecpp/glwidget/glcirclewidget.cpp
 
 CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.i: cmake_force
@@ -144,7 +161,7 @@ CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.s: cmake_force
 CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o: CMakeFiles/objViewer.dir/flags.make
 CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o: /opt/blackholecpp/glwidget/glbasicwidget.cpp
 CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o: CMakeFiles/objViewer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o -MF CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o.d -o CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o -c /opt/blackholecpp/glwidget/glbasicwidget.cpp
 
 CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.i: cmake_force
@@ -155,10 +172,24 @@ CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /opt/blackholecpp/glwidget/glbasicwidget.cpp -o CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.s
 
+CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.o: CMakeFiles/objViewer.dir/flags.make
+CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.o: /opt/blackholecpp/glwidget/glmultipasswidget.cpp
+CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.o: CMakeFiles/objViewer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.o -MF CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.o.d -o CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.o -c /opt/blackholecpp/glwidget/glmultipasswidget.cpp
+
+CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /opt/blackholecpp/glwidget/glmultipasswidget.cpp > CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.i
+
+CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /opt/blackholecpp/glwidget/glmultipasswidget.cpp -o CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.s
+
 CMakeFiles/objViewer.dir/mainwindow.cpp.o: CMakeFiles/objViewer.dir/flags.make
 CMakeFiles/objViewer.dir/mainwindow.cpp.o: /opt/blackholecpp/mainwindow.cpp
 CMakeFiles/objViewer.dir/mainwindow.cpp.o: CMakeFiles/objViewer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/objViewer.dir/mainwindow.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/objViewer.dir/mainwindow.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objViewer.dir/mainwindow.cpp.o -MF CMakeFiles/objViewer.dir/mainwindow.cpp.o.d -o CMakeFiles/objViewer.dir/mainwindow.cpp.o -c /opt/blackholecpp/mainwindow.cpp
 
 CMakeFiles/objViewer.dir/mainwindow.cpp.i: cmake_force
@@ -172,7 +203,7 @@ CMakeFiles/objViewer.dir/mainwindow.cpp.s: cmake_force
 CMakeFiles/objViewer.dir/main.cpp.o: CMakeFiles/objViewer.dir/flags.make
 CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp
 CMakeFiles/objViewer.dir/main.cpp.o: CMakeFiles/objViewer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/objViewer.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/objViewer.dir/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objViewer.dir/main.cpp.o -MF CMakeFiles/objViewer.dir/main.cpp.o.d -o CMakeFiles/objViewer.dir/main.cpp.o -c /opt/blackholecpp/main.cpp
 
 CMakeFiles/objViewer.dir/main.cpp.i: cmake_force
@@ -186,7 +217,7 @@ CMakeFiles/objViewer.dir/main.cpp.s: cmake_force
 CMakeFiles/objViewer.dir/qrc_shaders.cpp.o: CMakeFiles/objViewer.dir/flags.make
 CMakeFiles/objViewer.dir/qrc_shaders.cpp.o: qrc_shaders.cpp
 CMakeFiles/objViewer.dir/qrc_shaders.cpp.o: CMakeFiles/objViewer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/objViewer.dir/qrc_shaders.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/objViewer.dir/qrc_shaders.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/objViewer.dir/qrc_shaders.cpp.o -MF CMakeFiles/objViewer.dir/qrc_shaders.cpp.o.d -o CMakeFiles/objViewer.dir/qrc_shaders.cpp.o -c /opt/blackholecpp/build/qrc_shaders.cpp
 
 CMakeFiles/objViewer.dir/qrc_shaders.cpp.i: cmake_force
@@ -202,8 +233,10 @@ objViewer_OBJECTS = \
 "CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/objViewer.dir/tabs/controlpanel.cpp.o" \
 "CMakeFiles/objViewer.dir/tabs/basiccontrolpanel.cpp.o" \
+"CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.o" \
 "CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o" \
 "CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o" \
+"CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.o" \
 "CMakeFiles/objViewer.dir/mainwindow.cpp.o" \
 "CMakeFiles/objViewer.dir/main.cpp.o" \
 "CMakeFiles/objViewer.dir/qrc_shaders.cpp.o"
@@ -214,8 +247,10 @@ objViewer_EXTERNAL_OBJECTS =
 objViewer: CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o
 objViewer: CMakeFiles/objViewer.dir/tabs/controlpanel.cpp.o
 objViewer: CMakeFiles/objViewer.dir/tabs/basiccontrolpanel.cpp.o
+objViewer: CMakeFiles/objViewer.dir/tabs/multipasscontrolpanel.cpp.o
 objViewer: CMakeFiles/objViewer.dir/glwidget/glcirclewidget.cpp.o
 objViewer: CMakeFiles/objViewer.dir/glwidget/glbasicwidget.cpp.o
+objViewer: CMakeFiles/objViewer.dir/glwidget/glmultipasswidget.cpp.o
 objViewer: CMakeFiles/objViewer.dir/mainwindow.cpp.o
 objViewer: CMakeFiles/objViewer.dir/main.cpp.o
 objViewer: CMakeFiles/objViewer.dir/qrc_shaders.cpp.o
@@ -232,7 +267,7 @@ objViewer: /usr/lib/x86_64-linux-gnu/libgmp.so
 objViewer: /usr/lib/x86_64-linux-gnu/libmpfr.so
 objViewer: /usr/local/lib/libOpenMeshCore.so.11.0
 objViewer: CMakeFiles/objViewer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable objViewer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/opt/blackholecpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable objViewer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/objViewer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
