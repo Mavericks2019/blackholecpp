@@ -437,7 +437,7 @@ void main() {
     // 在main函数顶部添加这些定义
     float timerate = 0.0; // 时间因子，暂时设为0
     vec3 WorldZ = vec3(0.0, 0.0, 1.0); // 世界坐标系Z轴
-    vec3 BHRDiskDir = vec3(1.0, 1.0, 1.0); // 吸积盘方向（法向量）
+    vec3 BHRDiskDir = vec3(0.0, 1.0, 0.0); // 吸积盘方向（法向量）
     float RIn = 2.0 * Rs; // 吸积盘内半径（典型值：3倍史瓦西半径）
     float ROut = 10.0 * Rs; // 吸积盘外半径（典型值：20倍史瓦西半径）
     float diskA = 0.0; // 黑洞角动量参数（0-1，0为无自旋）
@@ -461,15 +461,15 @@ void main() {
         //什么？刚才不还是0.15吗?事实上为了性能远处可以让步长更大
                 
         if((Dis)>=2.0*ROut){//在吸积盘附近缩短步长。步长作为位置的函数必须连续,最好高阶可导,不然会造成光线上步前缘与下步后缘不重合,产生条纹
-                dl*=Dis;
+            dl*=Dis;
         }else if((Dis)>=1.0*ROut){
-                dl*=(max(abs(dot(BHRDiskDir,PosToBH)),Rs)*(2.0*ROut-Dis)+Dis*(Dis-ROut))/ROut;
+            dl*=(max(abs(dot(BHRDiskDir,PosToBH)),Rs)*(2.0*ROut-Dis)+Dis*(Dis-ROut))/ROut;
         }else if((Dis)>=RIn){
-                dl*=max(abs(dot(BHRDiskDir,PosToBH)),Rs);
+            dl*=max(abs(dot(BHRDiskDir,PosToBH)),Rs);
         }else if((Dis)>2.*Rs){
-                dl*=(max(abs(dot(BHRDiskDir,PosToBH)),Rs)*(Dis-2.0*Rs)+Dis*(RIn-Dis))/(RIn-2.0*Rs);
+            dl*=(max(abs(dot(BHRDiskDir,PosToBH)),Rs)*(Dis-2.0*Rs)+Dis*(RIn-Dis))/(RIn-2.0*Rs);
         }else{
-                dl*=Dis;
+            dl*=Dis;
         } 
 
         RayPos += RayDir*dl;
