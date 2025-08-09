@@ -355,8 +355,6 @@ CMakeFiles/objViewer.dir/mainwindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QPoint \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qpoint.h \
  /opt/blackholecpp/glwidget/glmultipasswidget.h \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFunctions_3_3_Core \
- /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglfunctions_3_3_core.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFramebufferObject \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglframebufferobject.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QCoreApplication \

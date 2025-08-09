@@ -354,7 +354,6 @@
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QMouseEvent \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLBuffer \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFramebufferObject \
-  /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFunctions_3_3_Core \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFunctions_4_3_Core \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLShaderProgram \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLTexture \
@@ -382,7 +381,6 @@
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglcontext.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglext.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglframebufferobject.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglfunctions_3_3_core.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglfunctions_4_3_core.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglshaderprogram.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qopengltexture.h \
