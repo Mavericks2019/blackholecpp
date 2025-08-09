@@ -9,6 +9,8 @@
 #include <QOpenGLFramebufferObject>
 #include <QFile>
 #include <QCoreApplication>
+#include <QTimer>
+#include <chrono>
 
 class GLMultiPassWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
 {
@@ -29,11 +31,15 @@ protected:
                           const QString& filePath);
 
 private:
-    QOpenGLShaderProgram *m_circleProgram = nullptr;
+    QOpenGLShaderProgram *m_basicProgram = nullptr;  // 改为basic着色器
     QOpenGLShaderProgram *m_compositeProgram = nullptr;
     QOpenGLFramebufferObject *m_fbo = nullptr;
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;
+    QTimer* m_timer = nullptr;  // 添加计时器
+    
+    // 使用高精度时间点
+    std::chrono::high_resolution_clock::time_point m_startTime;
 };
 
 #endif // GLMULTIPASSWIDGET_H
