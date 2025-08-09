@@ -15,6 +15,7 @@
 #include <QLabel>
 #include <QGroupBox>
 #include <QPushButton>
+#include <QSplitter>  // 添加QSplitter头文件
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     setWindowTitle("OpenGL Demo - Dark Theme");
@@ -27,13 +28,29 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     QWidget* centralWidget = new QWidget();
     setCentralWidget(centralWidget);
     
-    QHBoxLayout* mainLayout = new QHBoxLayout(centralWidget);
-    mainLayout->setSpacing(15);
-    mainLayout->setContentsMargins(15, 15, 15, 15);
+    // 使用垂直布局作为中央部件的布局
+    QVBoxLayout* mainLayout = new QVBoxLayout(centralWidget);
+    mainLayout->setContentsMargins(5, 5, 5, 5);  // 减少边距
     
-    // 左侧面板
+    // 创建主分割器（水平方向）
+    QSplitter* mainSplitter = new QSplitter(Qt::Horizontal);
+    mainSplitter->setHandleWidth(8);  // 设置分割条宽度
+    mainSplitter->setChildrenCollapsible(false);  // 防止完全折叠
+    mainSplitter->setStyleSheet(
+        "QSplitter::handle {"
+        "   background-color: #4a4a5a;"
+        "   border: 1px solid #3a3a4a;"
+        "   border-radius: 4px;"
+        "}"
+        "QSplitter::handle:hover {"
+        "   background-color: #5a5a6a;"
+        "}"
+    );
+    
+    // 左侧面板（包含标签页）
     QWidget* leftPanel = new QWidget();
     QVBoxLayout* leftLayout = new QVBoxLayout(leftPanel);
+    leftLayout->setContentsMargins(0, 0, 0, 0);  // 移除内部边距
     
     // 创建标签页
     tabWidget = new QTabWidget();
@@ -55,12 +72,26 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     createTabs();
     
     leftLayout->addWidget(tabWidget);
-    mainLayout->addWidget(leftPanel, 3);
     
     // 创建控制面板
     controlStack = new QStackedWidget();
     createControlPanels();
-    mainLayout->addWidget(controlStack, 1);
+    
+    // 设置控制面板最小宽度（变窄）
+    controlStack->setMinimumWidth(300);  // 比原来更窄
+    controlStack->setMaximumWidth(600);  // 设置最大宽度限制
+    
+    // 将左侧面板和右侧控制面板添加到分割器
+    mainSplitter->addWidget(leftPanel);
+    mainSplitter->addWidget(controlStack);
+    
+    // 设置初始大小比例（左侧75%，右侧25%）
+    QList<int> sizes;
+    sizes << width() * 0.80 << width() * 0.20;
+    mainSplitter->setSizes(sizes);
+    
+    // 将分割器添加到主布局
+    mainLayout->addWidget(mainSplitter);
     
     // 连接信号
     connectSignals();

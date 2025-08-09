@@ -352,6 +352,9 @@ CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglfunctions_3_3_core.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFramebufferObject \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglframebufferobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QCoreApplication \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h \
  /opt/blackholecpp/build/objViewer_autogen/EWIEGA46WW/moc_mainwindow.cpp \
  /opt/blackholecpp/build/objViewer_autogen/EWIEGA46WW/../../../mainwindow.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \

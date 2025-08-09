@@ -13,7 +13,6 @@ GLMultiPassWidget::GLMultiPassWidget(QWidget *parent) : QOpenGLWidget(parent),
 
 GLMultiPassWidget::~GLMultiPassWidget()
 {
-    // 清理资源
     makeCurrent();
     delete m_circleProgram;
     delete m_compositeProgram;
@@ -23,69 +22,58 @@ GLMultiPassWidget::~GLMultiPassWidget()
     doneCurrent();
 }
 
+// 着色器加载辅助函数
+bool GLMultiPassWidget::loadShaderSource(QOpenGLShaderProgram* program, 
+                                         QOpenGLShader::ShaderType type, 
+                                         const QString& filePath)
+{
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qWarning() << "Could not open shader file:" << filePath;
+        return false;
+    }
+    
+    QByteArray source = file.readAll();
+    file.close();
+    
+    if (!program->addShaderFromSourceCode(type, source)) {
+        qWarning() << "Failed to compile shader:" << filePath;
+        qWarning() << program->log();
+        return false;
+    }
+    
+    return true;
+}
+
 void GLMultiPassWidget::initializeGL()
 {
-    // 初始化OpenGL函数
     initializeOpenGLFunctions();
-    
-    glClearColor(0.1f, 0.1f, 0.15f, 1.0f); // 深蓝色背景
+    glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 
     // 创建圆形着色器程序
     m_circleProgram = new QOpenGLShaderProgram(this);
-    m_circleProgram->addShaderFromSourceCode(QOpenGLShader::Vertex,
-        "attribute vec2 aPos;\n"
-        "void main() {\n"
-        "    gl_Position = vec4(aPos, 0.0, 1.0);\n"
-        "}");
-    m_circleProgram->addShaderFromSourceCode(QOpenGLShader::Fragment,
-        "#ifdef GL_ES\n"
-        "precision mediump float;\n"
-        "#endif\n"
-        "uniform vec2 center;\n"
-        "uniform float radius;\n"
-        "uniform vec3 circleColor;\n"
-        "void main() {\n"
-        "    float d = distance(gl_FragCoord.xy, center);\n"
-        "    float alpha = smoothstep(radius, radius - 1.0, d);\n"
-        "    gl_FragColor = vec4(circleColor, alpha);\n"
-        "}");
-    m_circleProgram->link();
+    if (!loadShaderSource(m_circleProgram, QOpenGLShader::Vertex, 
+                         ":/shaders/multipass.vert") ||
+        !loadShaderSource(m_circleProgram, QOpenGLShader::Fragment, 
+                         ":/shaders/multipass_circle.frag") ||
+        !m_circleProgram->link()) 
+    {
+        qCritical() << "Circle shader program link failed:" << m_circleProgram->log();
+    }
 
     // 创建合成着色器程序
     m_compositeProgram = new QOpenGLShaderProgram(this);
-    m_compositeProgram->addShaderFromSourceCode(QOpenGLShader::Vertex,
-        "attribute vec2 aPos;\n"
-        "attribute vec2 aTexCoord;\n"
-        "varying vec2 TexCoord;\n"
-        "void main() {\n"
-        "    gl_Position = vec4(aPos, 0.0, 1.0);\n"
-        "    TexCoord = aTexCoord;\n"
-        "}");
-    m_compositeProgram->addShaderFromSourceCode(QOpenGLShader::Fragment,
-        "#ifdef GL_ES\n"
-        "precision mediump float;\n"
-        "#endif\n"
-        "varying vec2 TexCoord;\n"
-        "uniform sampler2D circleTexture;\n"
-        "uniform vec3 rectColor;\n"
-        "uniform vec2 rectCenter;\n"
-        "uniform vec2 rectSize;\n"
-        "void main() {\n"
-        "    vec2 rectHalf = rectSize * 0.5;\n"
-        "    bool inRect = abs(TexCoord.x - rectCenter.x) < rectHalf.x && \n"
-        "                  abs(TexCoord.y - rectCenter.y) < rectHalf.y;\n"
-        "    vec4 rect = vec4(0.0);\n"
-        "    if (inRect) {\n"
-        "        rect = vec4(rectColor, 1.0);\n"
-        "    }\n"
-        "    vec4 circle = texture2D(circleTexture, TexCoord);\n"
-        "    gl_FragColor = mix(rect, circle, circle.a);\n"
-        "}");
-    m_compositeProgram->link();
+    if (!loadShaderSource(m_compositeProgram, QOpenGLShader::Vertex, 
+                         ":/shaders/multipass.vert") ||
+        !loadShaderSource(m_compositeProgram, QOpenGLShader::Fragment, 
+                         ":/shaders/multipass_composite.frag") ||
+        !m_compositeProgram->link()) 
+    {
+        qCritical() << "Composite shader program link failed:" << m_compositeProgram->log();
+    }
 
-    // 创建全屏四边形
+    // 创建全屏四边形（保持不变）
     float quadVertices[] = {
-        // 位置         // 纹理坐标
         -1.0f,  1.0f,  0.0f, 1.0f,
         -1.0f, -1.0f,  0.0f, 0.0f,
          1.0f, -1.0f,  1.0f, 0.0f,
@@ -94,7 +82,6 @@ void GLMultiPassWidget::initializeGL()
          1.0f,  1.0f,  1.0f, 1.0f
     };
 
-    // 创建并绑定VAO和VBO
     m_vao.create();
     m_vao.bind();
 
@@ -102,11 +89,9 @@ void GLMultiPassWidget::initializeGL()
     m_vbo.bind();
     m_vbo.allocate(quadVertices, sizeof(quadVertices));
     
-    // 位置属性
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     
-    // 纹理坐标属性
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
     
@@ -167,14 +152,4 @@ void GLMultiPassWidget::paintGL()
     
     glDrawArrays(GL_TRIANGLES, 0, 6);
     m_vao.release();
-    
-    // 使用QPainter绘制文本
-    QPainter painter(this);
-    painter.setPen(Qt::white);
-    painter.setFont(QFont("Arial", 12));
-    painter.drawText(10, 30, "OpenGL多通道渲染示例 - 圆形与矩形合成");
-    painter.setFont(QFont("Arial", 10));
-    painter.drawText(10, 50, "第一通道: 圆形渲染到纹理");
-    painter.drawText(10, 70, "第二通道: 矩形渲染并合成圆形纹理");
-    painter.end();
 }

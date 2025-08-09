@@ -423,6 +423,8 @@ CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglfunctions_3_3_core.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFramebufferObject \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglframebufferobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QCoreApplication \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
  /opt/blackholecpp/tabs/basiccontrolpanel.h \
  /opt/blackholecpp/tabs/controlpanel.h \
  /opt/blackholecpp/tabs/multipasscontrolpanel.h

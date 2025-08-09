@@ -359,6 +359,9 @@ CMakeFiles/objViewer.dir/mainwindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglfunctions_3_3_core.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFramebufferObject \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglframebufferobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QCoreApplication \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h \
  /opt/blackholecpp/tabs/basiccontrolpanel.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QFrame \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
@@ -380,7 +383,6 @@ CMakeFiles/objViewer.dir/mainwindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qguiapplication.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qinputmethod.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
@@ -396,4 +398,6 @@ CMakeFiles/objViewer.dir/mainwindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QFont \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qfont.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStyleFactory \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstylefactory.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstylefactory.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QSplitter \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsplitter.h

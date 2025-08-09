@@ -7,7 +7,8 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
 #include <QOpenGLFramebufferObject>
-#include <QTimer>
+#include <QFile>
+#include <QCoreApplication>
 
 class GLMultiPassWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
 {
@@ -21,6 +22,11 @@ protected:
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
+    
+    // 添加着色器加载辅助函数
+    bool loadShaderSource(QOpenGLShaderProgram* program, 
+                          QOpenGLShader::ShaderType type, 
+                          const QString& filePath);
 
 private:
     QOpenGLShaderProgram *m_circleProgram = nullptr;
