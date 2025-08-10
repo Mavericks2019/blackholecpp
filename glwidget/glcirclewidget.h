@@ -14,6 +14,7 @@
 #include <QVector2D>
 #include <QVector4D>
 #include <QPoint>
+#include <QOpenGLFramebufferObject>  // 添加FBO支持
 
 class GLCircleWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_3_Core {
     Q_OBJECT
@@ -42,6 +43,11 @@ private:
     QOpenGLVertexArrayObject vao;
     QOpenGLBuffer vbo;
     QOpenGLTexture* chessTexture = nullptr;
+    
+    // 添加帧缓冲和纹理
+    QOpenGLFramebufferObject* fbo = nullptr;
+    QOpenGLTexture* prevFrameTexture = nullptr;
+    QOpenGLShaderProgram* screenProgram = nullptr;
     
     // Uniform values
     QVector3D circleColor{1.0f, 0.0f, 0.0f};

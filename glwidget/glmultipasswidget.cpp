@@ -248,19 +248,55 @@ void GLMultiPassWidget::createChessTexture()
     const int size = 64;
     QImage image(size, size, QImage::Format_RGBA8888);
     
-    QColor color1(220, 220, 220);
-    QColor color2(80, 80, 100);
+    QColor color1(220, 220, 220);  // 浅色格子
+    QColor color2(80, 80, 100);    // 深色格子
     
     const int tileSize = size / 8;
-    for (int y = 0; y < size; y++) {
-        for (int x = 0; x < size; x++) {
-            int tileX = x / tileSize;
-            int tileY = y / tileSize;
-            image.setPixelColor(x, y, (tileX + tileY) % 2 == 0 ? color1 : color2);
+    
+    // 设置字母（国际象棋棋子表示）
+    QString letters = "RNBQKBNR";  // 首行棋子：车、马、象、后、王、象、马、车
+    
+    QPainter painter(&image);
+    painter.setRenderHint(QPainter::Antialiasing);
+    QFont font = painter.font();
+    font.setPixelSize(tileSize - 4);
+    font.setBold(true);
+    painter.setFont(font);
+    
+    for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+            // 计算格子颜色
+            bool isLight = (x + y) % 2 == 0;
+            QColor bgColor = isLight ? color1 : color2;
+            QColor textColor = isLight ? color2 : color1;
+            
+            // 绘制格子背景
+            painter.fillRect(x * tileSize, y * tileSize, tileSize, tileSize, bgColor);
+            
+            // 只在深色格子上添加字母
+            if (!isLight) {
+                painter.setPen(textColor);
+                
+                // 确定字母位置（棋盘顶部和底部）
+                QString letter;
+                if (y == 0 || y == 7) {
+                    letter = letters.at(x);
+                }
+                // 在第二行和倒数第二行添加兵
+                else if (y == 1 || y == 6) {
+                    letter = "P";  // 兵(Pawn)
+                }
+                
+                if (!letter.isEmpty()) {
+                    // 居中绘制字母
+                    QRect textRect(x * tileSize, y * tileSize, tileSize, tileSize);
+                    painter.drawText(textRect, Qt::AlignCenter, letter);
+                }
+            }
         }
     }
     
-    m_chessTexture = new QOpenGLTexture(image);
+    m_chessTexture = new QOpenGLTexture(image.mirrored());
     m_chessTexture->setWrapMode(QOpenGLTexture::Repeat);
     m_chessTexture->setMinificationFilter(QOpenGLTexture::Linear);
     m_chessTexture->setMagnificationFilter(QOpenGLTexture::Linear);

@@ -20,6 +20,11 @@ GLCircleWidget::GLCircleWidget(QWidget* parent) : QOpenGLWidget(parent) {
         update();
     });
     timer->start(16); // ~60 FPS
+    
+    // 初始化指针
+    fbo = nullptr;
+    prevFrameTexture = nullptr;
+    screenProgram = nullptr;
 }
 
 void GLCircleWidget::initializeGL() {
@@ -35,6 +40,18 @@ void GLCircleWidget::initializeGL() {
     }
     if (!program->link()) {
         qDebug() << "Shader link error:" << program->log();
+    }
+    
+    // Create screen shader program
+    screenProgram = new QOpenGLShaderProgram(this);
+    if (!screenProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, "../shaders/screen.vert")) {
+        qDebug() << "Screen vertex shader error:" << screenProgram->log();
+    }
+    if (!screenProgram->addShaderFromSourceFile(QOpenGLShader::Fragment, "../shaders/screen.frag")) {
+        qDebug() << "Screen fragment shader error:" << screenProgram->log();
+    }
+    if (!screenProgram->link()) {
+        qDebug() << "Screen shader link error:" << screenProgram->log();
     }
     
     // Create VAO and VBO
@@ -67,44 +84,115 @@ void GLCircleWidget::initializeGL() {
 }
 
 void GLCircleWidget::paintGL() {
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    if (!program || !program->isLinked()) return;
-    
-    program->bind();
-    vao.bind();
-    
-    // Set uniforms
-    program->setUniformValue("circleColor", circleColor);
-    program->setUniformValue("iResolution", width(), height());
-    program->setUniformValue("offset", offset);
-    program->setUniformValue("radius", radius);
-    program->setUniformValue("MBlackHole", blackHoleMass);
-    program->setUniformValue("backgroundType", backgroundType);
-    program->setUniformValue("iFrame", iFrame);
-    program->setUniformValue("iMouse", iMouse[0], iMouse[1], iMouse[2], iMouse[3]);
-    program->setUniformValue("iTime", iTime);
-    program->setUniformValue("iChannelResolution", 
-        chessTextureResolution.x(), chessTextureResolution.y(), chessTextureResolution.z());
-    
-    // Bind chess texture
-    if (chessTexture) {
-        glActiveTexture(GL_TEXTURE1);
-        chessTexture->bind();
-        program->setUniformValue("iChannel1", 1);
+    // 第一步：渲染到帧缓冲
+    if (!fbo) {
+        // 如果FBO不存在，创建它
+        QOpenGLFramebufferObjectFormat format;
+        format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
+        format.setSamples(0); // 禁用多重采样
+        fbo = new QOpenGLFramebufferObject(width(), height(), format);
+        
+        // 创建上一帧纹理
+        prevFrameTexture = new QOpenGLTexture(QOpenGLTexture::Target2D);
+        prevFrameTexture->create();
+        prevFrameTexture->bind();
+        prevFrameTexture->setSize(width(), height());
+        prevFrameTexture->setFormat(QOpenGLTexture::RGBA8_UNorm);
+        prevFrameTexture->allocateStorage();
+        prevFrameTexture->setMinMagFilters(QOpenGLTexture::Linear, QOpenGLTexture::Linear);
+        prevFrameTexture->setWrapMode(QOpenGLTexture::ClampToEdge);
+        prevFrameTexture->release();
     }
     
-    // Draw fullscreen quad
+    // 绑定FBO进行渲染
+    fbo->bind();
+    {
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
+        if (!program || !program->isLinked()) {
+            fbo->release();
+            return;
+        }
+        
+        program->bind();
+        vao.bind();
+        
+        // Set uniforms
+        program->setUniformValue("circleColor", circleColor);
+        program->setUniformValue("iResolution", width(), height());
+        program->setUniformValue("offset", offset);
+        program->setUniformValue("radius", radius);
+        program->setUniformValue("MBlackHole", blackHoleMass);
+        program->setUniformValue("backgroundType", backgroundType);
+        program->setUniformValue("iFrame", iFrame);
+        program->setUniformValue("iMouse", iMouse[0], iMouse[1], iMouse[2], iMouse[3]);
+        program->setUniformValue("iTime", iTime);
+        program->setUniformValue("iChannelResolution", 
+            chessTextureResolution.x(), chessTextureResolution.y(), chessTextureResolution.z());
+        
+        // Bind chess texture
+        if (chessTexture) {
+            glActiveTexture(GL_TEXTURE1);
+            chessTexture->bind();
+            program->setUniformValue("iChannel1", 1);
+        }
+        
+        // Bind previous frame texture
+        if (prevFrameTexture && iFrame > 0) {
+            glActiveTexture(GL_TEXTURE3);
+            prevFrameTexture->bind();
+            program->setUniformValue("iChannel3", 3);
+        }
+        
+        // Draw fullscreen quad
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        vao.release();
+        program->release();
+    }
+    fbo->release();
+    
+    // 第二步：将当前帧复制到上一帧纹理
+    if (prevFrameTexture) {
+        glBindTexture(GL_TEXTURE_2D, prevFrameTexture->textureId());
+        glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width(), height());
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+    
+    // 第三步：将FBO内容渲染到屏幕
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    screenProgram->bind();
+    vao.bind();
+    
+    // 绑定FBO纹理
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, fbo->texture());
+    screenProgram->setUniformValue("screenTexture", 0);
+    
+    // 绘制全屏四边形
     glDrawArrays(GL_TRIANGLES, 0, 6);
     
     vao.release();
-    program->release();
+    screenProgram->release();
 }
 
 void GLCircleWidget::resizeGL(int w, int h) {
     glViewport(0, 0, w, h);
     updateAspectRatio();
+    
+    // 删除旧的FBO和纹理
+    if (fbo) {
+        delete fbo;
+        fbo = nullptr;
+    }
+    if (prevFrameTexture) {
+        delete prevFrameTexture;
+        prevFrameTexture = nullptr;
+    }
+    
     update();
 }
 
