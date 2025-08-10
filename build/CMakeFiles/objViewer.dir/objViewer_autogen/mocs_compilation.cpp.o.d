@@ -348,6 +348,8 @@ CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qpoint.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFramebufferObject \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglframebufferobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QElapsedTimer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qelapsedtimer.h \
  /opt/blackholecpp/build/objViewer_autogen/KTNQVRIVIS/moc_glmultipasswidget.cpp \
  /opt/blackholecpp/build/objViewer_autogen/KTNQVRIVIS/../../../glwidget/glmultipasswidget.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QCoreApplication \
