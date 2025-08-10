@@ -11,7 +11,7 @@ uniform vec4 iMouse; // 添加 iMouse 变量
 uniform float iTime;              // 添加 iTime 变量 (类似Shadertoy)
 uniform sampler2D iChannel1;         // 棋盘格纹理 (类似Shadertoy)
 uniform sampler2D iChannel3;        // 上一帧纹理
-uniform float iTimeDelta = 0.16;
+uniform float iTimeDelta;
 uniform vec3 iChannelResolution;  // 声明为vec3数组
 uniform int iFrame;           // 添加 iFrame 变量 (类似Shadertoy)
 
@@ -533,7 +533,7 @@ void main()
     // TAA
     float blendWeight = 1.0 - pow(0.5, (iTimeDelta) / max(min((0.131 * 36.0 / (TimeRate) * (GetKeplerianAngularVelocity(3. * 0.00000465, 0.00000465)) / (GetKeplerianAngularVelocity(3. * Rs, Rs))), 0.3),
                                                           0.02));  // 本部分在实际使用时max(min((0.131*36.0/(TimeRate)*(omega(3.*0.00000465,0.00000465))/(omega(3.*Rs,Rs))),0.3),0.02)由uniform输入
-    blendWeight       = (iFrame < 2 || iMouse.z > 0.0) ? 1.0 : blendWeight;
+    blendWeight = (iFrame < 2 || iMouse.z > 0.0) ? 1.0 : blendWeight;
 
     vec4 previousColor = texelFetch(iChannel3, ivec2(gl_FragCoord), 0);                     // 获取前一帧的颜色
     fragColor          = (blendWeight)*fragColor + (1.0 - blendWeight) * previousColor;  // 混合当前帧和前一帧

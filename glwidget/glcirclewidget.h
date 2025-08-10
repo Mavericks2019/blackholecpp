@@ -15,6 +15,7 @@
 #include <QVector4D>
 #include <QPoint>
 #include <QOpenGLFramebufferObject>  // 添加FBO支持
+#include <QElapsedTimer>
 
 class GLCircleWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_3_Core {
     Q_OBJECT
@@ -49,6 +50,9 @@ private:
     QOpenGLTexture* prevFrameTexture = nullptr;
     QOpenGLShaderProgram* screenProgram = nullptr;
     
+    QElapsedTimer frameTimer;
+    float lastFrameTime = 0.0f;
+
     // Uniform values
     QVector3D circleColor{1.0f, 0.0f, 0.0f};
     QVector2D offset{0.2f, 0.2f};

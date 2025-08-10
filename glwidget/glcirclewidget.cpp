@@ -15,9 +15,7 @@ GLCircleWidget::GLCircleWidget(QWidget* parent) : QOpenGLWidget(parent) {
     
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, [this]() {
-        iTime += 0.016f;
-        iFrame++;
-        update();
+        update();  // 只触发重绘，不再更新iTime
     });
     timer->start(16); // ~60 FPS
     
@@ -29,7 +27,9 @@ GLCircleWidget::GLCircleWidget(QWidget* parent) : QOpenGLWidget(parent) {
 
 void GLCircleWidget::initializeGL() {
     initializeOpenGLFunctions();
-    
+
+    frameTimer.start();  // 启动计时器
+    lastFrameTime = frameTimer.elapsed() / 1000.0f;  // 初始化时间
     // Create shader program
     program = new QOpenGLShaderProgram(this);
     if (!program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../shaders/circle.vert")) {
@@ -84,6 +84,13 @@ void GLCircleWidget::initializeGL() {
 }
 
 void GLCircleWidget::paintGL() {
+    // 计算真实的时间增量
+    float currentTime = frameTimer.elapsed() / 1000.0f;
+    float deltaTime = currentTime - lastFrameTime;
+    lastFrameTime = currentTime;
+    // 更新时间和帧数
+    iTime += deltaTime;
+    iFrame++;
     // 第一步：渲染到帧缓冲
     if (!fbo) {
         // 如果FBO不存在，创建它
@@ -130,7 +137,7 @@ void GLCircleWidget::paintGL() {
         program->setUniformValue("iTime", iTime);
         program->setUniformValue("iChannelResolution", 
             chessTextureResolution.x(), chessTextureResolution.y(), chessTextureResolution.z());
-        
+        program->setUniformValue("iTimeDelta", deltaTime);
         // Bind chess texture
         if (chessTexture) {
             glActiveTexture(GL_TEXTURE1);
