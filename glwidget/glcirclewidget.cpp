@@ -154,18 +154,49 @@ void GLCircleWidget::paintGL() {
         
         // Draw fullscreen quad
         glDrawArrays(GL_TRIANGLES, 0, 6);
-        
+        // 将当前帧复制到上一帧纹理
+        if (prevFrameTexture) {
+            // 直接复制FBO内容到纹理
+            glBindTexture(GL_TEXTURE_2D, prevFrameTexture->textureId());
+            glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width(), height());
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
+
+        // // 调试：保存prevFrameTexture为图片
+        // static bool savedDebugTextures = false;
+        // if (!savedDebugTextures) {
+        //     // 保存棋盘纹理
+        //     if (chessTexture) {
+        //         QImage chessImage(64, 64, QImage::Format_RGBA8888);
+        //         chessTexture->bind();
+        //         glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, chessImage.bits());
+        //         chessTexture->release();
+        //         chessImage.save("chess_texture.png");
+        //         qDebug() << "Chess texture saved to chess_texture.png";
+        //     }
+            
+        //     // 保存prevFrameTexture
+        //     if (prevFrameTexture) {
+        //         QImage prevImage(width(), height(), QImage::Format_RGBA8888);
+        //         prevFrameTexture->bind();
+        //         glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, prevImage.bits());
+        //         prevFrameTexture->release();
+        //         prevImage.save("prev_frame_texture.png");
+        //         qDebug() << "Prev frame texture saved to prev_frame_texture.png";
+        //     }
+            
+        //     // 保存当前FBO内容
+        //     QImage fboImage = fbo->toImage();
+        //     fboImage.save("current_fbo.png");
+        //     qDebug() << "Current FBO saved to current_fbo.png";
+            
+        //     savedDebugTextures = true;
+        // }
+
         vao.release();
         program->release();
     }
     fbo->release();
-    
-    // 第二步：将当前帧复制到上一帧纹理
-    if (prevFrameTexture) {
-        glBindTexture(GL_TEXTURE_2D, prevFrameTexture->textureId());
-        glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width(), height());
-        glBindTexture(GL_TEXTURE_2D, 0);
-    }
     
     // 第三步：将FBO内容渲染到屏幕
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
