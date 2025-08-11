@@ -15,27 +15,28 @@
 #include <QLabel>
 #include <QGroupBox>
 #include <QPushButton>
-#include <QSplitter>  // 添加QSplitter头文件
+#include <QSplitter>
+#include <QCheckBox>
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     setWindowTitle("OpenGL Demo - Dark Theme");
     resize(2400, 1800);
     
-    // 设置深色主题
+    // Set dark theme
     setDarkPalette();
     
-    // 中央部件
+    // Central widget
     QWidget* centralWidget = new QWidget();
     setCentralWidget(centralWidget);
     
-    // 使用垂直布局作为中央部件的布局
+    // Main layout for central widget
     QVBoxLayout* mainLayout = new QVBoxLayout(centralWidget);
-    mainLayout->setContentsMargins(5, 5, 5, 5);  // 减少边距
+    mainLayout->setContentsMargins(5, 5, 5, 5);
     
-    // 创建主分割器（水平方向）
+    // Create main splitter (horizontal)
     QSplitter* mainSplitter = new QSplitter(Qt::Horizontal);
-    mainSplitter->setHandleWidth(8);  // 设置分割条宽度
-    mainSplitter->setChildrenCollapsible(false);  // 防止完全折叠
+    mainSplitter->setHandleWidth(8);
+    mainSplitter->setChildrenCollapsible(false);
     mainSplitter->setStyleSheet(
         "QSplitter::handle {"
         "   background-color: #4a4a5a;"
@@ -47,17 +48,17 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
         "}"
     );
     
-    // 左侧面板（包含标签页）
+    // Left panel (contains tabs)
     QWidget* leftPanel = new QWidget();
     QVBoxLayout* leftLayout = new QVBoxLayout(leftPanel);
-    leftLayout->setContentsMargins(0, 0, 0, 0);  // 移除内部边距
+    leftLayout->setContentsMargins(0, 0, 0, 0);
     
-    // 创建标签页
+    // Create tab widget
     tabWidget = new QTabWidget();
     tabWidget->setTabPosition(QTabWidget::North);
     tabWidget->setDocumentMode(false);
     
-    // 应用标签页样式
+    // Apply tab styles
     tabWidget->setStyleSheet(
         "QTabWidget::pane { border: none; margin-top: 4px; }"
         "QTabBar::tab { background: #3a3a4a; color: #c0c0d0; padding: 8px 16px;"
@@ -68,52 +69,54 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
         "QTabBar::tab:!selected { margin-top: 4px; }"
     );
     
-    // 创建标签页内容
+    // Create tab content
     createTabs();
     
     leftLayout->addWidget(tabWidget);
     
-    // 创建控制面板
+    // Create control panels
     controlStack = new QStackedWidget();
     createControlPanels();
     
-    // 设置控制面板最小宽度（变窄）
-    controlStack->setMinimumWidth(300);  // 比原来更窄
-    controlStack->setMaximumWidth(600);  // 设置最大宽度限制
+    // Set control panel width
+    controlStack->setMinimumWidth(300);
+    controlStack->setMaximumWidth(600);
     
-    // 将左侧面板和右侧控制面板添加到分割器
+    // Add panels to splitter
     mainSplitter->addWidget(leftPanel);
     mainSplitter->addWidget(controlStack);
     
-    // 设置初始大小比例（左侧75%，右侧25%）
+    // Set initial size proportions (80% left, 20% right)
     QList<int> sizes;
     sizes << width() * 0.80 << width() * 0.20;
     mainSplitter->setSizes(sizes);
     
-    // 将分割器添加到主布局
+    // Add splitter to main layout
     mainLayout->addWidget(mainSplitter);
     
-    // 连接信号
+    // Connect signals
     connectSignals();
     
-    // 应用样式
+    // Apply styles
     applyStyles();
     
-    // 设置初始激活标签页为Basic Demo
+    // Set initial active tab
     tabWidget->setCurrentIndex(0);
     controlStack->setCurrentIndex(0);
 }
 
 MainWindow::~MainWindow() {
-    // 清理资源
+    // Clean up resources
     delete basicCanvas;
     delete basicControl;
     delete circleCanvas;
     delete circleControl;
+    delete multiPassCanvas;
+    delete multiPassControl;
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
-    // 清理OpenGL资源
+    // Clean up OpenGL resources
     if (basicCanvas) {
         basicCanvas->makeCurrent();
         basicCanvas->doneCurrent();
@@ -122,12 +125,16 @@ void MainWindow::closeEvent(QCloseEvent* event) {
         circleCanvas->makeCurrent();
         circleCanvas->doneCurrent();
     }
+    if (multiPassCanvas) {
+        multiPassCanvas->makeCurrent();
+        multiPassCanvas->doneCurrent();
+    }
     QMainWindow::closeEvent(event);
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
     QMainWindow::resizeEvent(event);
-    // 更新所有画布的宽高比
+    // Update aspect ratio for all canvases
     if (circleCanvas) {
         circleCanvas->updateAspectRatio();
     }
@@ -135,18 +142,21 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 
 void MainWindow::showEvent(QShowEvent* event) {
     QMainWindow::showEvent(event);
-    // 强制重绘所有画布
+    // Force repaint of all canvases
     if (basicCanvas) {
         basicCanvas->update();
     }
     if (circleCanvas) {
         circleCanvas->update();
     }
+    if (multiPassCanvas) {
+        multiPassCanvas->update();
+    }
 }
 
 void MainWindow::onTabChanged(int index) {
     controlStack->setCurrentIndex(index);
-    // 切换标签页时强制重绘
+    // Force repaint when switching tabs
     switch(index) {
         case 0: // Basic
             if (basicCanvas) basicCanvas->update();
@@ -155,7 +165,7 @@ void MainWindow::onTabChanged(int index) {
             if (circleCanvas) circleCanvas->update();
             break;
         case 2: // Multi-Pass
-             if (multiPassCanvas) multiPassCanvas->update(); // 添加这一行
+            if (multiPassCanvas) multiPassCanvas->update();
             break;
     }
 }
@@ -181,21 +191,21 @@ void MainWindow::setDarkPalette() {
 }
 
 void MainWindow::createTabs() {
-    // 基本功能标签页 (索引0)
+    // Basic Demo tab (index 0)
     QWidget* basicTab = new QWidget();
     QVBoxLayout* basicLayout = new QVBoxLayout(basicTab);
     basicCanvas = new GLBasicWidget();
     basicLayout->addWidget(basicCanvas);
     tabWidget->addTab(basicTab, "Basic Demo");
     
-    // Black Hole标签页 (索引1)
+    // Black Hole tab (index 1)
     QWidget* circleTab = new QWidget();
     QVBoxLayout* circleLayout = new QVBoxLayout(circleTab);
     circleCanvas = new GLCircleWidget();
     circleLayout->addWidget(circleCanvas);
     tabWidget->addTab(circleTab, "Black Hole Demo");
     
-    // Multi-Pass Demo (索引2)
+    // Multi-Pass Demo tab (index 2)
     QWidget* multiPassTab = new QWidget();
     QVBoxLayout* multiPassLayout = new QVBoxLayout(multiPassTab);
     multiPassCanvas = new GLMultiPassWidget();
@@ -204,65 +214,78 @@ void MainWindow::createTabs() {
 }
 
 void MainWindow::createControlPanels() {
-    // 基本功能控制面板 (索引0)
+    // Basic control panel (index 0)
     basicControl = new BasicControlPanel();
     controlStack->addWidget(basicControl);
     
-    // Black Hole控制面板 (索引1)
+    // Black Hole control panel (index 1)
     circleControl = new ControlPanel();
     controlStack->addWidget(circleControl);
     
-    // Multi-Pass控制面板 (索引2)
+    // Multi-Pass control panel (index 2)
     multiPassControl = new MultiPassControlPanel();
     controlStack->addWidget(multiPassControl);
 }
 
 void MainWindow::connectSignals() {
-    // 标签页切换
+    // Tab change signal
     connect(tabWidget, &QTabWidget::currentChanged, this, &MainWindow::onTabChanged);
     
-    // Basic控制信号
+    // Basic control signals
     connect(basicControl, &BasicControlPanel::rotateRequested, []() {
-        // 这里可以添加旋转三角形的逻辑
+        // Rotation logic for triangle
     });
     
-    // Black Hole控制信号
+    // Black Hole control signals
     connect(circleControl, &ControlPanel::backgroundTypeChanged,
             circleCanvas, &GLCircleWidget::setBackgroundType);
     
     connect(circleCanvas, &GLCircleWidget::aspectRatioChanged,
             circleControl, &ControlPanel::setAspectRatio);
     
-    // 初始宽高比更新
+    // Connect mipmap signal
+    connect(circleControl, &ControlPanel::showMipmapChanged,
+            circleCanvas, &GLCircleWidget::setShowMipmap);
+    
+    // Initial aspect ratio update
     if (circleCanvas) {
         circleCanvas->updateAspectRatio();
     }
 }
 
 void MainWindow::applyStyles() {
-    // 应用基本控制面板样式
+    // Apply basic control panel style
     basicControl->setStyleSheet(
         "background-color: #2d2d3a; border-radius: 8px; border: 1px solid #3a3a4a;"
     );
     
-    // 应用Black Hole控制面板样式
+    // Apply Black Hole control panel style
     circleControl->setStyleSheet(
         "background-color: #2d2d3a; border-radius: 8px; border: 1px solid #3a3a4a;"
     );
     
-    // 标题样式
+    // Apply Multi-Pass control panel style
+    multiPassControl->setStyleSheet(
+        "background-color: #2d2d3a; border-radius: 8px; border: 1px solid #3a3a4a;"
+    );
+    
+    // Title styles
     QLabel* basicTitle = basicControl->findChild<QLabel*>("titleLabel");
     if (basicTitle) {
         basicTitle->setStyleSheet("font-size: 18px; font-weight: bold; color: #d0d0ff; padding: 15px 0;");
     }
     
-    // Black Hole标题样式
     QLabel* circleTitle = circleControl->findChild<QLabel*>("titleLabel");
     if (circleTitle) {
         circleTitle->setStyleSheet("font-size: 18px; font-weight: bold; color: #d0d0ff; padding: 15px 0;");
     }
     
-    // 按钮样式
+    QLabel* multiPassTitle = multiPassControl->findChild<QLabel*>("titleLabel");
+    if (multiPassTitle) {
+        multiPassTitle->setStyleSheet("font-size: 18px; font-weight: bold; color: #d0d0ff; padding: 15px 0;");
+    }
+    
+    // Button styles
     QPushButton* rotateBtn = basicControl->findChild<QPushButton*>("rotateBtn");
     if (rotateBtn) {
         rotateBtn->setStyleSheet(
@@ -277,7 +300,7 @@ void MainWindow::applyStyles() {
         );
     }
     
-    // Black Hole按钮样式
+    // Black Hole button styles
     QList<QPushButton*> bgButtons = circleControl->findChildren<QPushButton*>();
     for (QPushButton* btn : bgButtons) {
         btn->setStyleSheet(
@@ -292,7 +315,32 @@ void MainWindow::applyStyles() {
         );
     }
     
-    // 页脚样式
+    // Mipmap checkbox style
+    QCheckBox* mipmapCheck = circleControl->findChild<QCheckBox*>("mipmapCheckBox");
+    if (mipmapCheck) {
+        mipmapCheck->setStyleSheet(
+            "QCheckBox {"
+            "   color: #e0e0ff;"
+            "   font-size: 12px;"
+            "   spacing: 8px;"
+            "}"
+            "QCheckBox::indicator {"
+            "   width: 16px;"
+            "   height: 16px;"
+            "}"
+            "QCheckBox::indicator:unchecked {"
+            "   border: 1px solid #787898;"
+            "   background-color: #3a3a4a;"
+            "}"
+            "QCheckBox::indicator:checked {"
+            "   border: 1px solid #a0a0c0;"
+            "   background-color: #6a6a8a;"
+            "   image: url(:/icons/checkmark.png);"
+            "}"
+        );
+    }
+    
+    // Footer styles
     QLabel* basicFooter = basicControl->findChild<QLabel*>();
     if (basicFooter && basicFooter->text().contains("©")) {
         basicFooter->setStyleSheet("color: #9090a0; font-size: 10px; margin-top: 20px;");

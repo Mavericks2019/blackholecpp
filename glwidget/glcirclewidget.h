@@ -14,7 +14,7 @@
 #include <QVector2D>
 #include <QVector4D>
 #include <QPoint>
-#include <QOpenGLFramebufferObject>  // 添加FBO支持
+#include <QOpenGLFramebufferObject>
 #include <QElapsedTimer>
 
 class GLCircleWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_3_Core {
@@ -22,6 +22,7 @@ class GLCircleWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_3_Core
 public:
     explicit GLCircleWidget(QWidget* parent = nullptr);
     void setBackgroundType(int type);
+    void setShowMipmap(bool show);
 
 signals:
     void aspectRatioChanged(const QString& ratio);
@@ -45,10 +46,15 @@ private:
     QOpenGLBuffer vbo;
     QOpenGLTexture* chessTexture = nullptr;
     
-    // 添加帧缓冲和纹理
+    // FBO and textures
     QOpenGLFramebufferObject* fbo = nullptr;
     QOpenGLTexture* prevFrameTexture = nullptr;
     QOpenGLShaderProgram* screenProgram = nullptr;
+    
+    // Mipmap resources
+    bool showMipmap = false;
+    QOpenGLShaderProgram* mipmapProgram = nullptr;
+    QOpenGLFramebufferObject* mipmapFBO = nullptr;
     
     QElapsedTimer frameTimer;
     float lastFrameTime = 0.0f;
@@ -58,7 +64,7 @@ private:
     QVector2D offset{0.2f, 0.2f};
     float radius = 0.2f;
     float blackHoleMass = 1.49e7f;
-    int backgroundType = 0; // 0: chess, 1: black, 2: stars, 3: texture
+    int backgroundType = 0;
     QVector3D chessTextureResolution{64.0f, 64.0f, 0.0f};
     
     // Shadertoy-like variables

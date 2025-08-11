@@ -15,22 +15,25 @@ GLCircleWidget::GLCircleWidget(QWidget* parent) : QOpenGLWidget(parent) {
     
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, [this]() {
-        update();  // 只触发重绘，不再更新iTime
+        update();
     });
     timer->start(16); // ~60 FPS
     
-    // 初始化指针
+    // Initialize pointers
     fbo = nullptr;
     prevFrameTexture = nullptr;
     screenProgram = nullptr;
+    mipmapProgram = nullptr;
+    mipmapFBO = nullptr;
 }
 
 void GLCircleWidget::initializeGL() {
     initializeOpenGLFunctions();
 
-    frameTimer.start();  // 启动计时器
-    lastFrameTime = frameTimer.elapsed() / 1000.0f;  // 初始化时间
-    // Create shader program
+    frameTimer.start();
+    lastFrameTime = frameTimer.elapsed() / 1000.0f;
+    
+    // Create main shader program
     program = new QOpenGLShaderProgram(this);
     if (!program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../shaders/circle.vert")) {
         qDebug() << "Vertex shader error:" << program->log();
@@ -52,6 +55,18 @@ void GLCircleWidget::initializeGL() {
     }
     if (!screenProgram->link()) {
         qDebug() << "Screen shader link error:" << screenProgram->log();
+    }
+    
+    // Create mipmap shader program
+    mipmapProgram = new QOpenGLShaderProgram(this);
+    if (!mipmapProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, "../shaders/screen.vert")) {
+        qDebug() << "Mipmap vertex shader error:" << mipmapProgram->log();
+    }
+    if (!mipmapProgram->addShaderFromSourceFile(QOpenGLShader::Fragment, "../shaders/mipmap.frag")) {
+        qDebug() << "Mipmap fragment shader error:" << mipmapProgram->log();
+    }
+    if (!mipmapProgram->link()) {
+        qDebug() << "Mipmap shader link error:" << mipmapProgram->log();
     }
     
     // Create VAO and VBO
@@ -84,22 +99,20 @@ void GLCircleWidget::initializeGL() {
 }
 
 void GLCircleWidget::paintGL() {
-    // 计算真实的时间增量
+    // Calculate real time delta
     float currentTime = frameTimer.elapsed() / 1000.0f;
     float deltaTime = currentTime - lastFrameTime;
     lastFrameTime = currentTime;
-    // 更新时间和帧数
     iTime += deltaTime;
     iFrame++;
-    // 第一步：渲染到帧缓冲
+    
+    // Step 1: Render to FBO
     if (!fbo) {
-        // 如果FBO不存在，创建它
         QOpenGLFramebufferObjectFormat format;
         format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
-        format.setSamples(0); // 禁用多重采样
+        format.setSamples(0);
         fbo = new QOpenGLFramebufferObject(width(), height(), format);
         
-        // 创建上一帧纹理
         prevFrameTexture = new QOpenGLTexture(QOpenGLTexture::Target2D);
         prevFrameTexture->create();
         prevFrameTexture->bind();
@@ -111,7 +124,7 @@ void GLCircleWidget::paintGL() {
         prevFrameTexture->release();
     }
     
-    // 绑定FBO进行渲染
+    // Bind FBO for rendering
     fbo->bind();
     {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -138,6 +151,7 @@ void GLCircleWidget::paintGL() {
         program->setUniformValue("iChannelResolution", 
             chessTextureResolution.x(), chessTextureResolution.y(), chessTextureResolution.z());
         program->setUniformValue("iTimeDelta", deltaTime);
+        
         // Bind chess texture
         if (chessTexture) {
             glActiveTexture(GL_TEXTURE1);
@@ -154,63 +168,69 @@ void GLCircleWidget::paintGL() {
         
         // Draw fullscreen quad
         glDrawArrays(GL_TRIANGLES, 0, 6);
-        // 将当前帧复制到上一帧纹理
+        
+        // Copy current frame to previous frame texture
         if (prevFrameTexture) {
-            // 直接复制FBO内容到纹理
             glBindTexture(GL_TEXTURE_2D, prevFrameTexture->textureId());
             glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width(), height());
             glBindTexture(GL_TEXTURE_2D, 0);
         }
-
-        // // 调试：保存prevFrameTexture为图片
-        // static bool savedDebugTextures = false;
-        // if (!savedDebugTextures) {
-        //     // 保存棋盘纹理
-        //     if (chessTexture) {
-        //         QImage chessImage(64, 64, QImage::Format_RGBA8888);
-        //         chessTexture->bind();
-        //         glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, chessImage.bits());
-        //         chessTexture->release();
-        //         chessImage.save("chess_texture.png");
-        //         qDebug() << "Chess texture saved to chess_texture.png";
-        //     }
-            
-        //     // 保存prevFrameTexture
-        //     if (prevFrameTexture) {
-        //         QImage prevImage(width(), height(), QImage::Format_RGBA8888);
-        //         prevFrameTexture->bind();
-        //         glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, prevImage.bits());
-        //         prevFrameTexture->release();
-        //         prevImage.save("prev_frame_texture.png");
-        //         qDebug() << "Prev frame texture saved to prev_frame_texture.png";
-        //     }
-            
-        //     // 保存当前FBO内容
-        //     QImage fboImage = fbo->toImage();
-        //     fboImage.save("current_fbo.png");
-        //     qDebug() << "Current FBO saved to current_fbo.png";
-            
-        //     savedDebugTextures = true;
-        // }
 
         vao.release();
         program->release();
     }
     fbo->release();
     
-    // 第三步：将FBO内容渲染到屏幕
+    // Apply mipmap effect if enabled
+    GLuint textureToRender = fbo->texture();
+    
+    if (showMipmap) {
+        // Create mipmap FBO if needed
+        if (!mipmapFBO) {
+            QOpenGLFramebufferObjectFormat format;
+            format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
+            format.setSamples(0);
+            mipmapFBO = new QOpenGLFramebufferObject(width(), height(), format);
+        }
+        
+        // Bind mipmap FBO
+        mipmapFBO->bind();
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        
+        mipmapProgram->bind();
+        vao.bind();
+        
+        // Bind FBO texture as input
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, fbo->texture());
+        mipmapProgram->setUniformValue("iChannel0", 0);
+        mipmapProgram->setUniformValue("iResolution", QVector2D(width(), height()));
+        
+        // Draw fullscreen quad
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        vao.release();
+        mipmapProgram->release();
+        mipmapFBO->release();
+        
+        // Use mipmap processed texture
+        textureToRender = mipmapFBO->texture();
+    }
+    
+    // Step 3: Render to screen
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
     screenProgram->bind();
     vao.bind();
     
-    // 绑定FBO纹理
+    // Bind texture to render
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, fbo->texture());
+    glBindTexture(GL_TEXTURE_2D, textureToRender);
     screenProgram->setUniformValue("screenTexture", 0);
     
-    // 绘制全屏四边形
+    // Draw fullscreen quad
     glDrawArrays(GL_TRIANGLES, 0, 6);
     
     vao.release();
@@ -221,7 +241,7 @@ void GLCircleWidget::resizeGL(int w, int h) {
     glViewport(0, 0, w, h);
     updateAspectRatio();
     
-    // 删除旧的FBO和纹理
+    // Delete old FBO and textures
     if (fbo) {
         delete fbo;
         fbo = nullptr;
@@ -229,6 +249,10 @@ void GLCircleWidget::resizeGL(int w, int h) {
     if (prevFrameTexture) {
         delete prevFrameTexture;
         prevFrameTexture = nullptr;
+    }
+    if (mipmapFBO) {
+        delete mipmapFBO;
+        mipmapFBO = nullptr;
     }
     
     update();
@@ -320,5 +344,10 @@ void GLCircleWidget::updateAspectRatio() {
 
 void GLCircleWidget::setBackgroundType(int type) {
     backgroundType = type;
-    update(); // Trigger repaint with new background
+    update();
+}
+
+void GLCircleWidget::setShowMipmap(bool show) {
+    showMipmap = show;
+    update();
 }

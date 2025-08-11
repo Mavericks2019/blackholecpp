@@ -4,6 +4,7 @@
 #include <QFrame>
 #include <QPushButton>
 #include <QLabel>
+#include <QCheckBox>
 
 class ControlPanel : public QFrame {
     Q_OBJECT
@@ -13,6 +14,7 @@ public:
 
 signals:
     void backgroundTypeChanged(int type);
+    void showMipmapChanged(bool show);
 
 public:
     QPushButton* createBgButton(const QString& text, int type);
@@ -24,6 +26,7 @@ public:
     QPushButton* bgStarsBtn;
     QPushButton* bgTextureBtn;
     QLabel* ratioLabel;
+    QCheckBox* mipmapCheckBox;
 };
 
 #endif // CONTROLPANEL_H

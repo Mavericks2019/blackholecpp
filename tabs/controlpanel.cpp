@@ -4,17 +4,18 @@
 #include <QLabel>
 #include <QGroupBox>
 #include <QFrame>
+#include <QCheckBox>
 
 ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     setFrameShape(QFrame::StyledPanel);
     
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->setSpacing(15);
-    layout->setContentsMargins(20, 20, 20, 20); // 增加边距
+    layout->setContentsMargins(20, 20, 20, 20);
     
     // Title
     QLabel* titleLabel = new QLabel("OpenGL Black Hole Controls");
-    titleLabel->setObjectName("titleLabel"); // 添加对象名称
+    titleLabel->setObjectName("titleLabel");
     titleLabel->setAlignment(Qt::AlignCenter);
     layout->addWidget(titleLabel);
     
@@ -28,10 +29,10 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     // Background type group
     QGroupBox* bgGroup = new QGroupBox("Background Type");
     QVBoxLayout* bgLayout = new QVBoxLayout(bgGroup);
-    bgLayout->setContentsMargins(10, 15, 10, 15); // 增加内边距
+    bgLayout->setContentsMargins(10, 15, 10, 15);
     
     QHBoxLayout* btnLayout = new QHBoxLayout();
-    btnLayout->setSpacing(10); // 增加按钮间距
+    btnLayout->setSpacing(10);
     bgLayout->addLayout(btnLayout);
     
     bgChessBtn = createBgButton("Chess", 0);
@@ -49,10 +50,24 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     // 添加间距
     layout->addSpacing(20);
     
+    // Mipmap debug option
+    QGroupBox* mipmapGroup = new QGroupBox("Debug Options");
+    QVBoxLayout* mipmapLayout = new QVBoxLayout(mipmapGroup);
+    mipmapLayout->setContentsMargins(10, 15, 10, 15);
+    
+    mipmapCheckBox = new QCheckBox("Show Mipmap Effect");
+    mipmapCheckBox->setObjectName("mipmapCheckBox");
+    mipmapLayout->addWidget(mipmapCheckBox);
+    
+    layout->addWidget(mipmapGroup);
+    
+    // 添加间距
+    layout->addSpacing(20);
+    
     // Aspect ratio group
     QGroupBox* ratioGroup = new QGroupBox("Aspect Ratio");
     QVBoxLayout* ratioLayout = new QVBoxLayout(ratioGroup);
-    ratioLayout->setContentsMargins(10, 15, 10, 15); // 增加内边距
+    ratioLayout->setContentsMargins(10, 15, 10, 15);
     
     ratioLabel = new QLabel("Current: 1.00");
     ratioLabel->setAlignment(Qt::AlignCenter);
@@ -60,7 +75,7 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     
     QLabel* ratioInfo = new QLabel("To maintain circle shape:\nWidth : Height = 1 : 1");
     ratioInfo->setAlignment(Qt::AlignCenter);
-    ratioInfo->setMargin(10); // 增加文本边距
+    ratioInfo->setMargin(10);
     ratioLayout->addWidget(ratioInfo);
     
     layout->addWidget(ratioGroup);
@@ -73,11 +88,16 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     footer->setAlignment(Qt::AlignCenter);
     footer->setStyleSheet("color: #9090a0; font-size: 10px; margin-top: 20px;");
     layout->addWidget(footer);
+    
+    // 连接mipmap复选框信号
+    connect(mipmapCheckBox, &QCheckBox::toggled, this, [this](bool checked) {
+        emit showMipmapChanged(checked);
+    });
 }
 
 QPushButton* ControlPanel::createBgButton(const QString& text, int type) {
     QPushButton* btn = new QPushButton(text);
-    btn->setObjectName(QString("bgBtn_%1").arg(type)); // 添加对象名称
+    btn->setObjectName(QString("bgBtn_%1").arg(type));
     btn->setCheckable(true);
     btn->setFixedHeight(30);
     connect(btn, &QPushButton::clicked, this, [this, type]() {

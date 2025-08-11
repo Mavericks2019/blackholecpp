@@ -444,10 +444,28 @@ void main()
         DistanceToBlackHole      = length(PosToBlackHole);
         NormalizedPosToBlackHole = PosToBlackHole / DistanceToBlackHole;
 
+        // if (DistanceToBlackHole > (2.5 * OuterRadius) && DistanceToBlackHole > LastR && Count > 50)
+        // {  // 远离黑洞
+        //     flag   = false;
+        //     FragUv = DirToFragUv(RayDir);
+        // }
+
         if (DistanceToBlackHole > (2.5 * OuterRadius) && DistanceToBlackHole > LastR && Count > 50)
         {  // 远离黑洞
             flag   = false;
-            FragUv = DirToFragUv(RayDir);
+            //FragUv = DirToFragUv(RayDir);
+            if (backgroundType == 0) { // 棋盘背景
+                FragUv = DirToFragUv(RayDir);
+                fragColor+=0.5*texelFetch(iChannel1, ivec2(vec2(fract(FragUv.x),fract(FragUv.y))*iChannelResolution.xy), 0)*(1.0-fragColor.a);
+            } else if (backgroundType == 1) { // 纯黑背景
+                fragColor += vec4(0.0, 0.0, 0.0, 1.0) * (1.0 - fragColor.a);
+            } else if (backgroundType == 3) { // 使用第一通道的纹理
+                FragUv = DirToFragUv(RayDir);
+                fragColor += 0.5 * texture(backgroundTexture, vec2(fract(FragUv.x), fract(FragUv.y)) * (1.0 - fragColor.a));
+            } else { // 其他背景类型使用棋盘
+                FragUv = DirToFragUv(RayDir);
+                fragColor += 0.5 * texture(iChannel1, vec2(fract(FragUv.x), fract(FragUv.y)) * (1.0 - fragColor.a));
+            }
         }
         if (DistanceToBlackHole < 0.1 * Rs)
         {
@@ -499,26 +517,6 @@ void main()
         StepLength = RayStep;
 
         Count++;
-        // if(DistanceToBlackHole > (100.*Rs) && DistanceToBlackHole > lastR && Count > 50) {
-        //     flag = false;
-            
-        //     // 根据背景类型选择不同的背景
-        //     if (backgroundType == 0) { // 棋盘背景
-        //         uv = DirToFragUv(RayDir);
-        //         fragColor += 0.5 * texture(iChannel1, vec2(fract(uv.x), fract(uv.y)) * (1.0 - fragColor.a));
-        //     } else if (backgroundType == 1) { // 纯黑背景
-        //         fragColor += vec4(0.0, 0.0, 0.0, 1.0) * (1.0 - fragColor.a);
-        //     } else if (backgroundType == 3) { // 使用第一通道的纹理
-        //         uv = DirToFragUv(RayDir);
-        //         fragColor += 0.5 * texture(backgroundTexture, vec2(fract(uv.x), fract(uv.y)) * (1.0 - fragColor.a));
-        //     } else { // 其他背景类型使用棋盘
-        //         uv = DirToFragUv(RayDir);
-        //         fragColor += 0.5 * texture(iChannel1, vec2(fract(uv.x), fract(uv.y)) * (1.0 - fragColor.a));
-        //     }
-        // }
-        // if(DistanceToBlackHole < 0.1 * Rs) {
-        //     flag = false;
-        // }
     }
     // 为了套bloom先逆处理一遍
     float colorRFactor = 3.0*fragColor.r / (fragColor.g+fragColor.g+fragColor.b);
