@@ -9,6 +9,8 @@
 #include <QTimer>
 #include <QFile>
 #include <chrono> // 添加高精度时间库
+#include <QElapsedTimer>
+#include <QPainter>
 
 class GLBasicWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_3_Core {
     Q_OBJECT

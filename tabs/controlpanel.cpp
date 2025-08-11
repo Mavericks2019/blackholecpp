@@ -107,10 +107,24 @@ QPushButton* ControlPanel::createBgButton(const QString& text, int type) {
 }
 
 void ControlPanel::setBackgroundType(int type) {
+    // 更新所有按钮文本 - 移除可能存在的对号
+    bgChessBtn->setText(bgChessBtn->text().replace("✓ ", ""));
+    bgBlackBtn->setText(bgBlackBtn->text().replace("✓ ", ""));
+    bgStarsBtn->setText(bgStarsBtn->text().replace("✓ ", ""));
+    bgTextureBtn->setText(bgTextureBtn->text().replace("✓ ", ""));
+    
+    // 为选中的按钮添加对号
+    if (type == 0) bgChessBtn->setText("✓ " + bgChessBtn->text());
+    if (type == 1) bgBlackBtn->setText("✓ " + bgBlackBtn->text());
+    if (type == 2) bgStarsBtn->setText("✓ " + bgStarsBtn->text());
+    if (type == 3) bgTextureBtn->setText("✓ " + bgTextureBtn->text());
+    
+    // 设置选中状态
     bgChessBtn->setChecked(type == 0);
     bgBlackBtn->setChecked(type == 1);
     bgStarsBtn->setChecked(type == 2);
     bgTextureBtn->setChecked(type == 3);
+    
     emit backgroundTypeChanged(type);
 }
 

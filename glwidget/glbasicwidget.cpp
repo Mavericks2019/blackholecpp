@@ -123,6 +123,23 @@ void GLBasicWidget::initializeGL() {
 }
 
 void GLBasicWidget::paintGL() {
+        // === 帧率计算开始 ===
+    static QElapsedTimer fpsTimer;
+    static int frameCount = 0;
+    static float fps = 0.0f;
+    
+    if (frameCount == 0) {
+        fpsTimer.start();
+    }
+    frameCount++;
+    
+    // 每0.5秒更新一次帧率
+    if (fpsTimer.elapsed() > 500) {
+        fps = frameCount * 1000.0f / fpsTimer.elapsed();
+        frameCount = 0;
+        fpsTimer.restart();
+    }
+    // === 帧率计算结束 ===
     // 清除缓冲区
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -154,6 +171,20 @@ void GLBasicWidget::paintGL() {
     if (err != GL_NO_ERROR) {
         qDebug() << "OpenGL error after paintGL:" << err;
     }
+    // === 在右下角绘制帧率 ===
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(Qt::white);
+    painter.setFont(QFont("Arial", 12, QFont::Bold));
+    
+    // 创建半透明背景
+    QRect textRect(width() - 120, height() - 40, 110, 30);
+    painter.fillRect(textRect, QColor(0, 0, 0, 150));
+    
+    // 绘制帧率文本
+    QString fpsText = QString("FPS: %1").arg(fps, 0, 'f', 1);
+    painter.drawText(textRect, Qt::AlignCenter, fpsText);
+    // === 帧率绘制结束 ===
 }
 
 void GLBasicWidget::resizeGL(int w, int h) {

@@ -407,6 +407,12 @@ CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QScopedPointer \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qscopedpointer.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglversionfunctions.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QElapsedTimer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qelapsedtimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QPainter \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainter.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextoption.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h \
  /opt/blackholecpp/glwidget/glcirclewidget.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLTexture \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopengltexture.h \
@@ -420,8 +426,6 @@ CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qpoint.h \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLFramebufferObject \
  /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglframebufferobject.h \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/QElapsedTimer \
- /usr/include/x86_64-linux-gnu/qt5/QtCore/qelapsedtimer.h \
  /opt/blackholecpp/glwidget/glmultipasswidget.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QCoreApplication \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \

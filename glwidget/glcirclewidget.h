@@ -73,6 +73,11 @@ private:
     QVector4D iMouse;
     bool mousePressed = false;
     QPoint lastMousePos;
+
+    // 帧率计算成员
+    QElapsedTimer fpsTimer;
+    int frameCount = 0;
+    float fps = 0.0f;
 };
 
 #endif // GLCIRCLEWIDGET_H

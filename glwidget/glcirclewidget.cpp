@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QImage>
 #include <cmath>
+#include <QPainter>
 
 GLCircleWidget::GLCircleWidget(QWidget* parent) : QOpenGLWidget(parent) {
     setMinimumSize(600, 600);
@@ -25,6 +26,10 @@ GLCircleWidget::GLCircleWidget(QWidget* parent) : QOpenGLWidget(parent) {
     screenProgram = nullptr;
     mipmapProgram = nullptr;
     mipmapFBO = nullptr;
+    
+    // 初始化帧率计数器
+    frameCount = 0;
+    fps = 0.0f;
 }
 
 void GLCircleWidget::initializeGL() {
@@ -99,14 +104,27 @@ void GLCircleWidget::initializeGL() {
 }
 
 void GLCircleWidget::paintGL() {
-    // Calculate real time delta
+    // === 帧率计算开始 ===
+    frameCount++;
+    
+    // 每0.5秒更新一次帧率
+    if (fpsTimer.isValid() && fpsTimer.elapsed() > 500) {
+        fps = frameCount * 1000.0f / fpsTimer.elapsed();
+        frameCount = 0;
+        fpsTimer.restart();
+    } else if (!fpsTimer.isValid()) {
+        fpsTimer.start();
+    }
+    // === 帧率计算结束 ===
+    
+    // 计算真实的时间增量
     float currentTime = frameTimer.elapsed() / 1000.0f;
     float deltaTime = currentTime - lastFrameTime;
     lastFrameTime = currentTime;
     iTime += deltaTime;
     iFrame++;
     
-    // Step 1: Render to FBO
+    // 第一步：渲染到帧缓冲
     if (!fbo) {
         QOpenGLFramebufferObjectFormat format;
         format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
@@ -124,7 +142,7 @@ void GLCircleWidget::paintGL() {
         prevFrameTexture->release();
     }
     
-    // Bind FBO for rendering
+    // 绑定FBO进行渲染
     fbo->bind();
     {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -235,6 +253,21 @@ void GLCircleWidget::paintGL() {
     
     vao.release();
     screenProgram->release();
+    
+    // === 在右下角绘制帧率 ===
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(Qt::white);
+    painter.setFont(QFont("Arial", 12, QFont::Bold));
+    
+    // 创建半透明背景
+    QRect textRect(width() - 120, height() - 40, 110, 30);
+    painter.fillRect(textRect, QColor(0, 0, 0, 150));
+    
+    // 绘制帧率文本
+    QString fpsText = QString("FPS: %1").arg(fps, 0, 'f', 1);
+    painter.drawText(textRect, Qt::AlignCenter, fpsText);
+    // === 帧率绘制结束 ===
 }
 
 void GLCircleWidget::resizeGL(int w, int h) {

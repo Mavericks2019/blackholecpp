@@ -361,6 +361,7 @@
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLTexture \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLVersionFunctions \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QOpenGLVertexArrayObject \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/QPainter \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QSurfaceFormat \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector2D \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
@@ -389,7 +390,9 @@
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglversionfunctions.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qopenglvertexarrayobject.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpaintdevice.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainter.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpalette.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixelformat.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qpolygon.h \
@@ -398,6 +401,7 @@
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qrgb.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qrgba64.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qsurfaceformat.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextoption.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qtgui-config.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qtouchdevice.h \

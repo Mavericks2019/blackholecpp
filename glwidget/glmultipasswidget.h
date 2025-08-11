@@ -13,6 +13,8 @@
 #include <QTimer>
 #include <QMouseEvent> // 添加鼠标事件支持
 #include <chrono>
+#include <QElapsedTimer>
+#include <QPainter>
 
 class GLMultiPassWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_3_Core
 {

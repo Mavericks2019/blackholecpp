@@ -135,6 +135,22 @@ void GLMultiPassWidget::resizeGL(int w, int h)
 
 void GLMultiPassWidget::paintGL()
 {
+    // === 帧率计算开始 ===
+    static QElapsedTimer fpsTimer;
+    static int frameCount = 0;
+    static float fps = 0.0f;
+    
+    if (frameCount == 0) {
+        fpsTimer.start();
+    }
+    frameCount++;
+    
+    // 每0.5秒更新一次帧率
+    if (fpsTimer.elapsed() > 500) {
+        fps = frameCount * 1000.0f / fpsTimer.elapsed();
+        frameCount = 0;
+        fpsTimer.restart();
+    }
     // 第一通道: 渲染分形效果到纹理
     m_fbo->bind();
     glViewport(0, 0, m_fbo->width(), m_fbo->height());
@@ -192,6 +208,21 @@ void GLMultiPassWidget::paintGL()
     glDrawArrays(GL_TRIANGLES, 0, 6);
     m_vao.release();
     m_circleProgram->release();
+
+    // === 在右下角绘制帧率 ===
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(Qt::white);
+    painter.setFont(QFont("Arial", 12, QFont::Bold));
+    
+    // 创建半透明背景
+    QRect textRect(width() - 120, height() - 40, 110, 30);
+    painter.fillRect(textRect, QColor(0, 0, 0, 150));
+    
+    // 绘制帧率文本
+    QString fpsText = QString("FPS: %1").arg(fps, 0, 'f', 1);
+    painter.drawText(textRect, Qt::AlignCenter, fpsText);
+    // === 帧率绘制结束 ===
 }
 
 void GLMultiPassWidget::mousePressEvent(QMouseEvent* event)
