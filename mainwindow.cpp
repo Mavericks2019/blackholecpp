@@ -254,6 +254,10 @@ void MainWindow::connectSignals() {
     connect(circleControl, &ControlPanel::verticalBlurChanged,
             circleCanvas, &GLCircleWidget::setVerticalBlurEnabled);
     
+    // 连接渲染结果信号
+    connect(circleControl, &ControlPanel::showRenderResultChanged,
+            circleCanvas, &GLCircleWidget::setShowRenderResult);
+    
     // Initial aspect ratio update
     if (circleCanvas) {
         circleCanvas->updateAspectRatio();
@@ -322,10 +326,17 @@ void MainWindow::applyStyles() {
         );
     }
     
-    // Mipmap radio button style - 改为圆形单选按钮
-    QRadioButton* mipmapRadio = circleControl->findChild<QRadioButton*>("mipmapRadioButton");
-    QRadioButton* horizontalBlurRadio = circleControl->findChild<QRadioButton*>("horizontalBlurRadio");
-    QRadioButton* verticalBlurRadio = circleControl->findChild<QRadioButton*>("verticalBlurRadio");
+    // 新增渲染结果复选框样式
+    QCheckBox* showRenderCheck = circleControl->findChild<QCheckBox*>("showRenderResultCheck");
+    if (showRenderCheck) {
+        showRenderCheck->setStyleSheet(
+            "QCheckBox { color: #e0e0e0; }"
+            "QCheckBox::indicator { width: 16px; height: 16px; }"
+            "QCheckBox::indicator:unchecked { background-color: #3a3a4a; border: 1px solid #5a5a6a; }"
+            "QCheckBox::indicator:checked { background-color: #6a6a8a; border: 1px solid #8888aa; }"
+        );
+    }
+    
     // Footer styles
     QLabel* basicFooter = basicControl->findChild<QLabel*>();
     if (basicFooter && basicFooter->text().contains("©")) {

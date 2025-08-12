@@ -18,6 +18,7 @@ signals:
     void showMipmapChanged(bool show);
     void horizontalBlurChanged(bool enabled);  // 改为bool类型信号
     void verticalBlurChanged(bool enabled);    // 改为bool类型信号
+    void showRenderResultChanged(bool show);   // 新增渲染结果信号
 
 public:
     QPushButton* createBgButton(const QString& text, int type);
@@ -32,6 +33,7 @@ public:
     QCheckBox* mipmapRadioButton;
     QCheckBox* horizontalBlurRadio; 
     QCheckBox* verticalBlurRadio;
+    QCheckBox* showRenderResultCheck; // 新增渲染结果复选框
 };
 
 #endif // CONTROLPANEL_H

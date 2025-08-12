@@ -56,17 +56,19 @@ private:
     QOpenGLShaderProgram* mipmapProgram = nullptr;
     QOpenGLFramebufferObject* mipmapFBO = nullptr;
     
-    // hotizontal resources
+    // horizontal resources
     bool horizontal = false;
     QOpenGLShaderProgram* horizontalProgram = nullptr;
     QOpenGLFramebufferObject* horizontalFBO = nullptr;
 
-    // Mipmap resources
+    // vertical resources
     bool vertical = false;
     QOpenGLShaderProgram* verticalProgram = nullptr;
     QOpenGLFramebufferObject* verticalFBO = nullptr;
     QElapsedTimer frameTimer;
 
+    bool result = false;
+    QOpenGLShaderProgram* resultProgram = nullptr
     float lastFrameTime = 0.0f;
 
     // Uniform values
@@ -92,6 +94,7 @@ private:
     public slots:
     void setHorizontalBlurEnabled(bool enabled);
     void setVerticalBlurEnabled(bool enabled);
+    void setShowRenderResult(bool show); // 新增渲染结果槽函数
 };
 
 #endif // GLCIRCLEWIDGET_H

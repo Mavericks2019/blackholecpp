@@ -55,6 +55,11 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     QVBoxLayout* debugLayout = new QVBoxLayout(debugGroup);
     debugLayout->setContentsMargins(10, 15, 10, 15);
     
+    // 新增：渲染结果复选框
+    showRenderResultCheck = new QCheckBox("Show Render Result");
+    showRenderResultCheck->setObjectName("showRenderResultCheck");
+    debugLayout->addWidget(showRenderResultCheck);
+    
     // Mipmap 选项
     mipmapRadioButton = new QCheckBox("Show Mipmap Effect");
     mipmapRadioButton->setObjectName("mipmapRadioButton");
@@ -114,6 +119,17 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     // 纵向模糊信号
     connect(verticalBlurRadio, &QRadioButton::toggled, this, [this](bool enabled) {
         emit verticalBlurChanged(enabled);
+    });
+    
+    // 连接渲染结果信号
+    connect(showRenderResultCheck, &QCheckBox::toggled, this, [this](bool checked) {
+        // 当选中时，设置其他三个选项为true
+        if (checked) {
+            mipmapRadioButton->setChecked(true);
+            horizontalBlurRadio->setChecked(true);
+            verticalBlurRadio->setChecked(true);
+        }
+        emit showRenderResultChanged(checked);
     });
 }
 

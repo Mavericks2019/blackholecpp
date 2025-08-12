@@ -99,6 +99,18 @@ void GLCircleWidget::initializeGL() {
     if (!verticalProgram->link()) {
         qDebug() << "Vertical shader link error:" << verticalProgram->log();
     }
+
+    // Create vertical blur shader program
+    resultProgram = new QOpenGLShaderProgram(this);
+    if (!resultProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, "../shaders/screen.vert")) {
+        qDebug() << "Vertical vertex shader error:" << resultProgram->log();
+    }
+    if (!resultProgram->addShaderFromSourceFile(QOpenGLShader::Fragment, "../shaders/screen_result.frag")) {
+        qDebug() << "Vertical fragment shader error:" << resultProgram->log();
+    }
+    if (!resultProgram->link()) {
+        qDebug() << "Vertical shader link error:" << resultProgram->log();
+    }
     
     // Create VAO and VBO
     vao.create();
@@ -496,5 +508,16 @@ void GLCircleWidget::setHorizontalBlurEnabled(bool enabled) {
 
 void GLCircleWidget::setVerticalBlurEnabled(bool enabled) {
     vertical = enabled;
+    update();
+}
+
+void GLCircleWidget::setShowRenderResult(bool show) {
+    // 当需要显示渲染结果时，启用所有效果
+    if (show) {
+        result = show;
+        showMipmap = show;
+        horizontal = show;
+        vertical = show;
+    }
     update();
 }
