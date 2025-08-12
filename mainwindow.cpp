@@ -20,7 +20,7 @@
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     setWindowTitle("OpenGL Demo - Dark Theme");
-    resize(2400, 1800);
+    resize(2700, 1800);
     
     // Set dark theme
     setDarkPalette();
@@ -315,42 +315,8 @@ void MainWindow::applyStyles() {
         );
     }
     
-    // Mipmap checkbox style - 更明显的选中状态
-    QCheckBox* mipmapCheck = circleControl->findChild<QCheckBox*>("mipmapCheckBox");
-    if (mipmapCheck) {
-        mipmapCheck->setStyleSheet(
-            "QCheckBox {"
-            "   color: #e0e0ff;"
-            "   font-size: 12px;"
-            "   spacing: 8px;"
-            "   padding: 4px;"
-            "}"
-            "QCheckBox::indicator {"
-            "   width: 24px;"
-            "   height: 24px;"
-            "   border: 2px solid #787898;"
-            "   border-radius: 4px;"
-            "   background-color: #3a3a4a;"
-            "}"
-            "QCheckBox::indicator:hover {"
-            "   border: 2px solid #a0a0c0;"
-            "}"
-            "QCheckBox::indicator:checked {"
-            "   border: 2px solid #a0a0c0;"
-            "   background-color: #6a6a8a;"
-            "   image: url('data:image/svg+xml;utf8,"
-            "     <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\">"
-            "       <path fill=\"white\" d=\"M13.5,4.5l-7,7l-3.5-3.5l1.5-1.5l2,2l5.5-5.5L13.5,4.5z\"/>"
-            "     </svg>');"
-            "   background-position: center;"
-            "   background-repeat: no-repeat;"
-            "}"
-            "QCheckBox::indicator:checked:hover {"
-            "   background-color: #7a7a9a;"
-            "   border: 2px solid #c0c0e0;"
-            "}"
-        );
-    }
+    // Mipmap radio button style - 改为圆形单选按钮
+    QRadioButton* mipmapRadio = circleControl->findChild<QRadioButton*>("mipmapRadioButton");
     
     // Footer styles
     QLabel* basicFooter = basicControl->findChild<QLabel*>();

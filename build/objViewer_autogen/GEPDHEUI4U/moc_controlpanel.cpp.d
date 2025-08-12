@@ -337,15 +337,15 @@
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qtransform.h \
   /usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QCheckBox \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QFrame \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QRadioButton \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
-  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcheckbox.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
+  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qradiobutton.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgets-config.h \
   /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \

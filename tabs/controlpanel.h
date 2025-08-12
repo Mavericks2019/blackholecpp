@@ -4,7 +4,7 @@
 #include <QFrame>
 #include <QPushButton>
 #include <QLabel>
-#include <QCheckBox>
+#include <QRadioButton> // 改为包含QRadioButton
 
 class ControlPanel : public QFrame {
     Q_OBJECT
@@ -26,7 +26,7 @@ public:
     QPushButton* bgStarsBtn;
     QPushButton* bgTextureBtn;
     QLabel* ratioLabel;
-    QCheckBox* mipmapCheckBox;
+    QRadioButton* mipmapRadioButton; // 改为QRadioButton
 };
 
 #endif // CONTROLPANEL_H

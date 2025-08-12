@@ -377,8 +377,8 @@ CMakeFiles/objViewer.dir/mainwindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGroupBox \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgroupbox.h \
  /opt/blackholecpp/tabs/controlpanel.h \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QCheckBox \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcheckbox.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QRadioButton \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qradiobutton.h \
  /opt/blackholecpp/tabs/multipasscontrolpanel.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QVBoxLayout \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
@@ -406,4 +406,6 @@ CMakeFiles/objViewer.dir/mainwindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStyleFactory \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstylefactory.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QSplitter \
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsplitter.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsplitter.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QCheckBox \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcheckbox.h

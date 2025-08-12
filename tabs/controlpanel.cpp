@@ -4,7 +4,7 @@
 #include <QLabel>
 #include <QGroupBox>
 #include <QFrame>
-#include <QCheckBox>
+#include <QRadioButton> // 改为包含QRadioButton
 
 ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     setFrameShape(QFrame::StyledPanel);
@@ -50,14 +50,15 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     // 添加间距
     layout->addSpacing(20);
     
-    // Mipmap debug option
+    // Mipmap debug option - 改为QRadioButton
     QGroupBox* mipmapGroup = new QGroupBox("Debug Options");
     QVBoxLayout* mipmapLayout = new QVBoxLayout(mipmapGroup);
     mipmapLayout->setContentsMargins(10, 15, 10, 15);
     
-    mipmapCheckBox = new QCheckBox("Show Mipmap Effect");
-    mipmapCheckBox->setObjectName("mipmapCheckBox");
-    mipmapLayout->addWidget(mipmapCheckBox);
+    // 将QCheckBox改为QRadioButton
+    mipmapRadioButton = new QRadioButton("Show Mipmap Effect");
+    mipmapRadioButton->setObjectName("mipmapRadioButton"); // 更新对象名
+    mipmapLayout->addWidget(mipmapRadioButton);
     
     layout->addWidget(mipmapGroup);
     
@@ -89,8 +90,8 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     footer->setStyleSheet("color: #9090a0; font-size: 10px; margin-top: 20px;");
     layout->addWidget(footer);
     
-    // 连接mipmap复选框信号
-    connect(mipmapCheckBox, &QCheckBox::toggled, this, [this](bool checked) {
+    // 连接mipmap单选按钮信号
+    connect(mipmapRadioButton, &QRadioButton::toggled, this, [this](bool checked) {
         emit showMipmapChanged(checked);
     });
 }
