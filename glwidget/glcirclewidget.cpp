@@ -178,6 +178,14 @@ void GLCircleWidget::paintGL() {
         prevFrameTexture->setMinMagFilters(QOpenGLTexture::Linear, QOpenGLTexture::Linear);
         prevFrameTexture->setWrapMode(QOpenGLTexture::ClampToEdge);
         prevFrameTexture->release();
+        
+        GLuint texId = fbo->texture();
+        glBindTexture(GL_TEXTURE_2D, texId);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
     
     // 绑定FBO进行渲染
@@ -234,12 +242,10 @@ void GLCircleWidget::paintGL() {
 
         vao.release();
         program->release();
-    }
-    fbo->release();
-    
+    }    
     // 保存原始渲染纹理
     GLuint originalTexture = fbo->texture();
-    
+    fbo->release();
     // 初始化处理后的纹理为原始纹理
     GLuint processedTexture = originalTexture;
     
@@ -286,6 +292,15 @@ void GLCircleWidget::paintGL() {
             format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
             format.setSamples(0);
             horizontalFBO = new QOpenGLFramebufferObject(width(), height(), format);
+
+            // 设置纹理过滤和环绕模式
+            GLuint texId = horizontalFBO->texture();
+            glBindTexture(GL_TEXTURE_2D, texId);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            glBindTexture(GL_TEXTURE_2D, 0);
         }
         
         // 绑定水平模糊FBO
@@ -321,6 +336,14 @@ void GLCircleWidget::paintGL() {
             format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
             format.setSamples(0);
             verticalFBO = new QOpenGLFramebufferObject(width(), height(), format);
+            // 设置纹理过滤和环绕模式
+            GLuint texId = verticalFBO->texture();
+            glBindTexture(GL_TEXTURE_2D, texId);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            glBindTexture(GL_TEXTURE_2D, 0);
         }
         
         // 绑定垂直模糊FBO
@@ -547,9 +570,9 @@ void GLCircleWidget::setShowRenderResult(bool show) {
     // 当需要显示渲染结果时，启用所有效果
     if (show) {
         result = show;
-        // showMipmap = show;
-        // horizontal = show;
-        // vertical = show;
+        showMipmap = show;
+        horizontal = show;
+        vertical = show;
     }
     update();
 }
