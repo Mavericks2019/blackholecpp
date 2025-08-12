@@ -265,7 +265,7 @@ void GLCircleWidget::paintGL() {
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, processedTexture);  // 使用当前处理后的纹理
         mipmapProgram->setUniformValue("iChannel0", 0);
-        mipmapProgram->setUniformValue("iResolution", QVector2D(width(), height()));
+        mipmapProgram->setUniformValue("iResolution", width(), height());
         
         // Draw fullscreen quad
         glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -300,7 +300,7 @@ void GLCircleWidget::paintGL() {
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, processedTexture);
         horizontalProgram->setUniformValue("iChannel0", 0);
-        horizontalProgram->setUniformValue("iResolution", QVector2D(width(), height()));
+        horizontalProgram->setUniformValue("iResolution", width(), height());
         
         // 绘制全屏四边形
         glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -335,7 +335,7 @@ void GLCircleWidget::paintGL() {
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, processedTexture);
         verticalProgram->setUniformValue("iChannel0", 0);
-        verticalProgram->setUniformValue("iResolution", QVector2D(width(), height()));
+        verticalProgram->setUniformValue("iResolution", width(), height());
         
         // 绘制全屏四边形
         glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -360,12 +360,12 @@ void GLCircleWidget::paintGL() {
         resultProgram->bind();
         vao.bind();
         
-        // 绑定原始纹理到iChannel0
+        // // 绑定原始纹理到iChannel0
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, originalTexture);
         resultProgram->setUniformValue("iChannel0", 0);
         
-        // // 绑定Bloom纹理到iChannel3
+        // 绑定Bloom纹理到iChannel3
         glActiveTexture(GL_TEXTURE3);
         glBindTexture(GL_TEXTURE_2D, bloomTexture);
         resultProgram->setUniformValue("iChannel3", 3);
