@@ -384,3 +384,13 @@ void GLCircleWidget::setShowMipmap(bool show) {
     showMipmap = show;
     update();
 }
+
+void GLCircleWidget::setHorizontalBlurEnabled(bool enabled) {
+    // 启用/禁用横向模糊
+    update();
+}
+
+void GLCircleWidget::setVerticalBlurEnabled(bool enabled) {
+    // 启用/禁用纵向模糊
+    update();
+}

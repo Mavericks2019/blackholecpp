@@ -246,6 +246,13 @@ void MainWindow::connectSignals() {
     // Connect mipmap signal
     connect(circleControl, &ControlPanel::showMipmapChanged,
             circleCanvas, &GLCircleWidget::setShowMipmap);
+
+    // 连接模糊方向信号
+    connect(circleControl, &ControlPanel::horizontalBlurChanged,
+            circleCanvas, &GLCircleWidget::setHorizontalBlurEnabled);
+    
+    connect(circleControl, &ControlPanel::verticalBlurChanged,
+            circleCanvas, &GLCircleWidget::setVerticalBlurEnabled);
     
     // Initial aspect ratio update
     if (circleCanvas) {
@@ -317,7 +324,8 @@ void MainWindow::applyStyles() {
     
     // Mipmap radio button style - 改为圆形单选按钮
     QRadioButton* mipmapRadio = circleControl->findChild<QRadioButton*>("mipmapRadioButton");
-    
+    QRadioButton* horizontalBlurRadio = circleControl->findChild<QRadioButton*>("horizontalBlurRadio");
+    QRadioButton* verticalBlurRadio = circleControl->findChild<QRadioButton*>("verticalBlurRadio");
     // Footer styles
     QLabel* basicFooter = basicControl->findChild<QLabel*>();
     if (basicFooter && basicFooter->text().contains("©")) {

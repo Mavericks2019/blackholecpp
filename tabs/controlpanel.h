@@ -4,7 +4,8 @@
 #include <QFrame>
 #include <QPushButton>
 #include <QLabel>
-#include <QRadioButton> // 改为包含QRadioButton
+#include <QRadioButton>
+#include <QCheckBox>
 
 class ControlPanel : public QFrame {
     Q_OBJECT
@@ -15,6 +16,8 @@ public:
 signals:
     void backgroundTypeChanged(int type);
     void showMipmapChanged(bool show);
+    void horizontalBlurChanged(bool enabled);  // 改为bool类型信号
+    void verticalBlurChanged(bool enabled);    // 改为bool类型信号
 
 public:
     QPushButton* createBgButton(const QString& text, int type);
@@ -26,7 +29,9 @@ public:
     QPushButton* bgStarsBtn;
     QPushButton* bgTextureBtn;
     QLabel* ratioLabel;
-    QRadioButton* mipmapRadioButton; // 改为QRadioButton
+    QCheckBox* mipmapRadioButton;
+    QCheckBox* horizontalBlurRadio; 
+    QCheckBox* verticalBlurRadio;
 };
 
 #endif // CONTROLPANEL_H

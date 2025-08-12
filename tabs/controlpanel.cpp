@@ -4,7 +4,7 @@
 #include <QLabel>
 #include <QGroupBox>
 #include <QFrame>
-#include <QRadioButton> // 改为包含QRadioButton
+#include <QRadioButton>
 
 ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     setFrameShape(QFrame::StyledPanel);
@@ -50,17 +50,27 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     // 添加间距
     layout->addSpacing(20);
     
-    // Mipmap debug option - 改为QRadioButton
-    QGroupBox* mipmapGroup = new QGroupBox("Debug Options");
-    QVBoxLayout* mipmapLayout = new QVBoxLayout(mipmapGroup);
-    mipmapLayout->setContentsMargins(10, 15, 10, 15);
+    // Debug options group
+    QGroupBox* debugGroup = new QGroupBox("Debug Options");
+    QVBoxLayout* debugLayout = new QVBoxLayout(debugGroup);
+    debugLayout->setContentsMargins(10, 15, 10, 15);
     
-    // 将QCheckBox改为QRadioButton
-    mipmapRadioButton = new QRadioButton("Show Mipmap Effect");
-    mipmapRadioButton->setObjectName("mipmapRadioButton"); // 更新对象名
-    mipmapLayout->addWidget(mipmapRadioButton);
+    // Mipmap 选项
+    mipmapRadioButton = new QCheckBox("Show Mipmap Effect");
+    mipmapRadioButton->setObjectName("mipmapRadioButton");
+    debugLayout->addWidget(mipmapRadioButton);
     
-    layout->addWidget(mipmapGroup);
+    // 横向模糊单选按钮
+    horizontalBlurRadio = new QCheckBox("Horizontal Blur");
+    horizontalBlurRadio->setObjectName("horizontalBlurRadio");
+    debugLayout->addWidget(horizontalBlurRadio);
+    
+    // 纵向模糊单选按钮
+    verticalBlurRadio = new QCheckBox("Vertical Blur");
+    verticalBlurRadio->setObjectName("verticalBlurRadio");
+    debugLayout->addWidget(verticalBlurRadio);
+    
+    layout->addWidget(debugGroup);
     
     // 添加间距
     layout->addSpacing(20);
@@ -90,9 +100,20 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     footer->setStyleSheet("color: #9090a0; font-size: 10px; margin-top: 20px;");
     layout->addWidget(footer);
     
-    // 连接mipmap单选按钮信号
+    // 连接信号
+    // Mipmap信号
     connect(mipmapRadioButton, &QRadioButton::toggled, this, [this](bool checked) {
         emit showMipmapChanged(checked);
+    });
+    
+    // 横向模糊信号
+    connect(horizontalBlurRadio, &QRadioButton::toggled, this, [this](bool enabled) {
+        emit horizontalBlurChanged(enabled);
+    });
+    
+    // 纵向模糊信号
+    connect(verticalBlurRadio, &QRadioButton::toggled, this, [this](bool enabled) {
+        emit verticalBlurChanged(enabled);
     });
 }
 

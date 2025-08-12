@@ -78,6 +78,10 @@ private:
     QElapsedTimer fpsTimer;
     int frameCount = 0;
     float fps = 0.0f;
+
+    public slots:
+    void setHorizontalBlurEnabled(bool enabled);
+    void setVerticalBlurEnabled(bool enabled);
 };
 
 #endif // GLCIRCLEWIDGET_H
