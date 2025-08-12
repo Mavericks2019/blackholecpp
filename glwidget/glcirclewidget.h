@@ -56,7 +56,17 @@ private:
     QOpenGLShaderProgram* mipmapProgram = nullptr;
     QOpenGLFramebufferObject* mipmapFBO = nullptr;
     
+    // hotizontal resources
+    bool horizontal = false;
+    QOpenGLShaderProgram* horizontalProgram = nullptr;
+    QOpenGLFramebufferObject* horizontalFBO = nullptr;
+
+    // Mipmap resources
+    bool vertical = false;
+    QOpenGLShaderProgram* verticalProgram = nullptr;
+    QOpenGLFramebufferObject* verticalFBO = nullptr;
     QElapsedTimer frameTimer;
+
     float lastFrameTime = 0.0f;
 
     // Uniform values

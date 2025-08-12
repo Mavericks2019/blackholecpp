@@ -26,6 +26,8 @@ GLCircleWidget::GLCircleWidget(QWidget* parent) : QOpenGLWidget(parent) {
     screenProgram = nullptr;
     mipmapProgram = nullptr;
     mipmapFBO = nullptr;
+    horizontalFBO = nullptr;
+    verticalFBO = nullptr;
     
     // 初始化帧率计数器
     frameCount = 0;
@@ -72,6 +74,30 @@ void GLCircleWidget::initializeGL() {
     }
     if (!mipmapProgram->link()) {
         qDebug() << "Mipmap shader link error:" << mipmapProgram->log();
+    }
+
+    // Create horizontal blur shader program
+    horizontalProgram = new QOpenGLShaderProgram(this);
+    if (!horizontalProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, "../shaders/screen.vert")) {
+        qDebug() << "Horizontal vertex shader error:" << horizontalProgram->log();
+    }
+    if (!horizontalProgram->addShaderFromSourceFile(QOpenGLShader::Fragment, "../shaders/horizontal.frag")) {
+        qDebug() << "Horizontal fragment shader error:" << horizontalProgram->log();
+    }
+    if (!horizontalProgram->link()) {
+        qDebug() << "Horizontal shader link error:" << horizontalProgram->log();
+    }
+
+    // Create vertical blur shader program
+    verticalProgram = new QOpenGLShaderProgram(this);
+    if (!verticalProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, "../shaders/screen.vert")) {
+        qDebug() << "Vertical vertex shader error:" << verticalProgram->log();
+    }
+    if (!verticalProgram->addShaderFromSourceFile(QOpenGLShader::Fragment, "../shaders/vertical.frag")) {
+        qDebug() << "Vertical fragment shader error:" << verticalProgram->log();
+    }
+    if (!verticalProgram->link()) {
+        qDebug() << "Vertical shader link error:" << verticalProgram->log();
     }
     
     // Create VAO and VBO
@@ -236,6 +262,76 @@ void GLCircleWidget::paintGL() {
         textureToRender = mipmapFBO->texture();
     }
     
+    // 应用水平模糊
+    if (horizontal) {
+        // 创建水平模糊FBO（如果需要）
+        if (!horizontalFBO) {
+            QOpenGLFramebufferObjectFormat format;
+            format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
+            format.setSamples(0);
+            horizontalFBO = new QOpenGLFramebufferObject(width(), height(), format);
+        }
+        
+        // 绑定水平模糊FBO
+        horizontalFBO->bind();
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        
+        horizontalProgram->bind();
+        vao.bind();
+        
+        // 绑定输入纹理（可能是主渲染或mipmap处理后的结果）
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textureToRender);
+        horizontalProgram->setUniformValue("iChannel0", 0);
+        horizontalProgram->setUniformValue("iResolution", QVector2D(width(), height()));
+        
+        // 绘制全屏四边形
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        vao.release();
+        horizontalProgram->release();
+        horizontalFBO->release();
+        
+        // 使用水平模糊后的纹理
+        textureToRender = horizontalFBO->texture();
+    }
+    
+    // 应用垂直模糊
+    if (vertical) {
+        // 创建垂直模糊FBO（如果需要）
+        if (!verticalFBO) {
+            QOpenGLFramebufferObjectFormat format;
+            format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
+            format.setSamples(0);
+            verticalFBO = new QOpenGLFramebufferObject(width(), height(), format);
+        }
+        
+        // 绑定垂直模糊FBO
+        verticalFBO->bind();
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        
+        verticalProgram->bind();
+        vao.bind();
+        
+        // 绑定输入纹理（可能是主渲染、mipmap或水平模糊后的结果）
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textureToRender);
+        verticalProgram->setUniformValue("iChannel0", 0);
+        verticalProgram->setUniformValue("iResolution", QVector2D(width(), height()));
+        
+        // 绘制全屏四边形
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        vao.release();
+        verticalProgram->release();
+        verticalFBO->release();
+        
+        // 使用垂直模糊后的纹理
+        textureToRender = verticalFBO->texture();
+    }
+    
     // Step 3: Render to screen
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -286,6 +382,14 @@ void GLCircleWidget::resizeGL(int w, int h) {
     if (mipmapFBO) {
         delete mipmapFBO;
         mipmapFBO = nullptr;
+    }
+    if (horizontalFBO) {
+        delete horizontalFBO;
+        horizontalFBO = nullptr;
+    }
+    if (verticalFBO) {
+        delete verticalFBO;
+        verticalFBO = nullptr;
     }
     
     update();
@@ -386,11 +490,11 @@ void GLCircleWidget::setShowMipmap(bool show) {
 }
 
 void GLCircleWidget::setHorizontalBlurEnabled(bool enabled) {
-    // 启用/禁用横向模糊
+    horizontal = enabled;
     update();
 }
 
 void GLCircleWidget::setVerticalBlurEnabled(bool enabled) {
-    // 启用/禁用纵向模糊
+    vertical = enabled;
     update();
 }
