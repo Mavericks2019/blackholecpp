@@ -433,4 +433,6 @@ CMakeFiles/objViewer.dir/main.cpp.o: /opt/blackholecpp/main.cpp \
  /opt/blackholecpp/tabs/controlpanel.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QRadioButton \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qradiobutton.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QCheckBox \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcheckbox.h \
  /opt/blackholecpp/tabs/multipasscontrolpanel.h

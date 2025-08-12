@@ -387,6 +387,8 @@ CMakeFiles/objViewer.dir/objViewer_autogen/mocs_compilation.cpp.o: \
  /opt/blackholecpp/build/objViewer_autogen/EWIEGA46WW/../../../tabs/controlpanel.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QRadioButton \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qradiobutton.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QCheckBox \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcheckbox.h \
  /opt/blackholecpp/build/objViewer_autogen/EWIEGA46WW/../../../tabs/multipasscontrolpanel.h \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QVBoxLayout \
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
