@@ -68,7 +68,7 @@ private:
     QElapsedTimer frameTimer;
 
     bool result = false;
-    QOpenGLShaderProgram* resultProgram = nullptr
+    QOpenGLShaderProgram* resultProgram = nullptr;
     float lastFrameTime = 0.0f;
 
     // Uniform values
@@ -91,7 +91,7 @@ private:
     int frameCount = 0;
     float fps = 0.0f;
 
-    public slots:
+public slots:
     void setHorizontalBlurEnabled(bool enabled);
     void setVerticalBlurEnabled(bool enabled);
     void setShowRenderResult(bool show); // 新增渲染结果槽函数

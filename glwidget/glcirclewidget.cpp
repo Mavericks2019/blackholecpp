@@ -237,9 +237,13 @@ void GLCircleWidget::paintGL() {
     }
     fbo->release();
     
-    // Apply mipmap effect if enabled
-    GLuint textureToRender = fbo->texture();
+    // 保存原始渲染纹理
+    GLuint originalTexture = fbo->texture();
     
+    // 初始化处理后的纹理为原始纹理
+    GLuint processedTexture = originalTexture;
+    
+    // 应用 mipmap 效果
     if (showMipmap) {
         // Create mipmap FBO if needed
         if (!mipmapFBO) {
@@ -257,9 +261,9 @@ void GLCircleWidget::paintGL() {
         mipmapProgram->bind();
         vao.bind();
         
-        // Bind FBO texture as input
+        // Bind input texture
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, fbo->texture());
+        glBindTexture(GL_TEXTURE_2D, processedTexture);  // 使用当前处理后的纹理
         mipmapProgram->setUniformValue("iChannel0", 0);
         mipmapProgram->setUniformValue("iResolution", QVector2D(width(), height()));
         
@@ -270,8 +274,8 @@ void GLCircleWidget::paintGL() {
         mipmapProgram->release();
         mipmapFBO->release();
         
-        // Use mipmap processed texture
-        textureToRender = mipmapFBO->texture();
+        // Update processed texture
+        processedTexture = mipmapFBO->texture();
     }
     
     // 应用水平模糊
@@ -292,9 +296,9 @@ void GLCircleWidget::paintGL() {
         horizontalProgram->bind();
         vao.bind();
         
-        // 绑定输入纹理（可能是主渲染或mipmap处理后的结果）
+        // 绑定输入纹理（使用当前处理后的纹理）
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textureToRender);
+        glBindTexture(GL_TEXTURE_2D, processedTexture);
         horizontalProgram->setUniformValue("iChannel0", 0);
         horizontalProgram->setUniformValue("iResolution", QVector2D(width(), height()));
         
@@ -305,8 +309,8 @@ void GLCircleWidget::paintGL() {
         horizontalProgram->release();
         horizontalFBO->release();
         
-        // 使用水平模糊后的纹理
-        textureToRender = horizontalFBO->texture();
+        // 更新处理后的纹理
+        processedTexture = horizontalFBO->texture();
     }
     
     // 应用垂直模糊
@@ -327,9 +331,9 @@ void GLCircleWidget::paintGL() {
         verticalProgram->bind();
         vao.bind();
         
-        // 绑定输入纹理（可能是主渲染、mipmap或水平模糊后的结果）
+        // 绑定输入纹理（使用当前处理后的纹理）
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textureToRender);
+        glBindTexture(GL_TEXTURE_2D, processedTexture);
         verticalProgram->setUniformValue("iChannel0", 0);
         verticalProgram->setUniformValue("iResolution", QVector2D(width(), height()));
         
@@ -340,27 +344,56 @@ void GLCircleWidget::paintGL() {
         verticalProgram->release();
         verticalFBO->release();
         
-        // 使用垂直模糊后的纹理
-        textureToRender = verticalFBO->texture();
+        // 更新处理后的纹理
+        processedTexture = verticalFBO->texture();
     }
+    
+    // 保存Bloom纹理（处理后的纹理）
+    GLuint bloomTexture = processedTexture;
     
     // Step 3: Render to screen
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    screenProgram->bind();
-    vao.bind();
-    
-    // Bind texture to render
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, textureToRender);
-    screenProgram->setUniformValue("screenTexture", 0);
-    
-    // Draw fullscreen quad
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    
-    vao.release();
-    screenProgram->release();
+    if (result) {
+        // 使用resultProgram（screen_result.frag）
+        resultProgram->bind();
+        vao.bind();
+        
+        // 绑定原始纹理到iChannel0
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, originalTexture);
+        resultProgram->setUniformValue("iChannel0", 0);
+        
+        // // 绑定Bloom纹理到iChannel3
+        glActiveTexture(GL_TEXTURE3);
+        glBindTexture(GL_TEXTURE_2D, bloomTexture);
+        resultProgram->setUniformValue("iChannel3", 3);
+        
+        // 设置分辨率uniform
+        resultProgram->setUniformValue("iResolution", QVector2D(width(), height()));
+        
+        // 绘制全屏四边形
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        vao.release();
+        resultProgram->release();
+    } else {
+        // 使用原来的screenProgram
+        screenProgram->bind();
+        vao.bind();
+        
+        // 绑定要渲染的纹理（可能是原始纹理或处理后的纹理）
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, processedTexture);
+        screenProgram->setUniformValue("screenTexture", 0);
+        
+        // 绘制全屏四边形
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        vao.release();
+        screenProgram->release();
+    }
     
     // === 在右下角绘制帧率 ===
     QPainter painter(this);
@@ -377,7 +410,6 @@ void GLCircleWidget::paintGL() {
     painter.drawText(textRect, Qt::AlignCenter, fpsText);
     // === 帧率绘制结束 ===
 }
-
 void GLCircleWidget::resizeGL(int w, int h) {
     glViewport(0, 0, w, h);
     updateAspectRatio();
@@ -515,9 +547,9 @@ void GLCircleWidget::setShowRenderResult(bool show) {
     // 当需要显示渲染结果时，启用所有效果
     if (show) {
         result = show;
-        showMipmap = show;
-        horizontal = show;
-        vertical = show;
+        // showMipmap = show;
+        // horizontal = show;
+        // vertical = show;
     }
     update();
 }
