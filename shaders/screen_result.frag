@@ -85,7 +85,7 @@ vec3 GetBloom(vec2 coord) {
     bloom += Grab(coord, 5.0, CalcOffset(4.0)) * 1.8;
     bloom += Grab(coord, 6.0, CalcOffset(5.0)) * 1.0;
     bloom += Grab(coord, 7.0, CalcOffset(6.0)) * 1.0;
-    bloom += Grab(coord, 8.0, CalcOffset(7.0)) * 1.0;
+    bloom += Grab(coord, 8.0, CalcOffset(7.0)) * 0.5;
 
     return bloom;
 }
@@ -94,7 +94,7 @@ void main() {
     vec2 uv = gl_FragCoord.xy / iResolution;
     
     vec3 color = ColorFetch(uv);
-    color += GetBloom(uv) * 0.08;  // Bloom强度控制
+    color += GetBloom(uv) * 0.07;  // Bloom强度控制
 
     // 色调映射
     color = pow(color, vec3(1.5));

@@ -50,29 +50,36 @@ ControlPanel::ControlPanel(QWidget* parent) : QFrame(parent) {
     // 添加间距
     layout->addSpacing(20);
     
-    // Debug options group
+    // Debug options group - 放大组框
     QGroupBox* debugGroup = new QGroupBox("Debug Options");
-    QVBoxLayout* debugLayout = new QVBoxLayout(debugGroup);
-    debugLayout->setContentsMargins(10, 15, 10, 15);
+    debugGroup->setMinimumHeight(180);  // 增加最小高度
     
-    // 新增：渲染结果复选框
+    QVBoxLayout* debugLayout = new QVBoxLayout(debugGroup);
+    debugLayout->setContentsMargins(15, 20, 15, 20);  // 增加内边距
+    debugLayout->setSpacing(12);  // 增加间距
+    
+    // 新增：渲染结果复选框 (默认选中)
     showRenderResultCheck = new QCheckBox("Show Render Result");
     showRenderResultCheck->setObjectName("showRenderResultCheck");
+    showRenderResultCheck->setChecked(true);  // 默认选中
     debugLayout->addWidget(showRenderResultCheck);
     
-    // Mipmap 选项
+    // Mipmap 选项 (默认选中)
     mipmapRadioButton = new QCheckBox("Show Mipmap Effect");
     mipmapRadioButton->setObjectName("mipmapRadioButton");
+    mipmapRadioButton->setChecked(true);  // 默认选中
     debugLayout->addWidget(mipmapRadioButton);
     
-    // 横向模糊单选按钮
+    // 横向模糊单选按钮 (默认选中)
     horizontalBlurRadio = new QCheckBox("Horizontal Blur");
     horizontalBlurRadio->setObjectName("horizontalBlurRadio");
+    horizontalBlurRadio->setChecked(true);  // 默认选中
     debugLayout->addWidget(horizontalBlurRadio);
     
-    // 纵向模糊单选按钮
+    // 纵向模糊单选按钮 (默认选中)
     verticalBlurRadio = new QCheckBox("Vertical Blur");
     verticalBlurRadio->setObjectName("verticalBlurRadio");
+    verticalBlurRadio->setChecked(true);  // 默认选中
     debugLayout->addWidget(verticalBlurRadio);
     
     layout->addWidget(debugGroup);

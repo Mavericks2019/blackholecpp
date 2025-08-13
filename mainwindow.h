@@ -36,14 +36,15 @@ private:
     QTabWidget* tabWidget;
     QStackedWidget* controlStack;
     
+    // Black Hole Demo (放在最前面)
+    GLCircleWidget* circleCanvas;
+    ControlPanel* circleControl;
+    
     // Basic Demo
     GLBasicWidget* basicCanvas;
     BasicControlPanel* basicControl;
     
-    // Black Hole Demo
-    GLCircleWidget* circleCanvas;
-    ControlPanel* circleControl;
-
+    // Multi-Pass Demo
     GLMultiPassWidget* multiPassCanvas = nullptr;
     MultiPassControlPanel* multiPassControl = nullptr;
 };

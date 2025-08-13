@@ -158,11 +158,11 @@ void MainWindow::onTabChanged(int index) {
     controlStack->setCurrentIndex(index);
     // Force repaint when switching tabs
     switch(index) {
-        case 0: // Basic
-            if (basicCanvas) basicCanvas->update();
-            break;
-        case 1: // Black Hole
+        case 0: // Black Hole
             if (circleCanvas) circleCanvas->update();
+            break;
+        case 1: // Basic
+            if (basicCanvas) basicCanvas->update();
             break;
         case 2: // Multi-Pass
             if (multiPassCanvas) multiPassCanvas->update();
@@ -191,19 +191,19 @@ void MainWindow::setDarkPalette() {
 }
 
 void MainWindow::createTabs() {
-    // Basic Demo tab (index 0)
-    QWidget* basicTab = new QWidget();
-    QVBoxLayout* basicLayout = new QVBoxLayout(basicTab);
-    basicCanvas = new GLBasicWidget();
-    basicLayout->addWidget(basicCanvas);
-    tabWidget->addTab(basicTab, "Basic Demo");
-    
-    // Black Hole tab (index 1)
+    // Black Hole tab (index 0) - 放在最前面
     QWidget* circleTab = new QWidget();
     QVBoxLayout* circleLayout = new QVBoxLayout(circleTab);
     circleCanvas = new GLCircleWidget();
     circleLayout->addWidget(circleCanvas);
     tabWidget->addTab(circleTab, "Black Hole Demo");
+    
+    // Basic Demo tab (index 1)
+    QWidget* basicTab = new QWidget();
+    QVBoxLayout* basicLayout = new QVBoxLayout(basicTab);
+    basicCanvas = new GLBasicWidget();
+    basicLayout->addWidget(basicCanvas);
+    tabWidget->addTab(basicTab, "Basic Demo");
     
     // Multi-Pass Demo tab (index 2)
     QWidget* multiPassTab = new QWidget();
@@ -214,13 +214,13 @@ void MainWindow::createTabs() {
 }
 
 void MainWindow::createControlPanels() {
-    // Basic control panel (index 0)
-    basicControl = new BasicControlPanel();
-    controlStack->addWidget(basicControl);
-    
-    // Black Hole control panel (index 1)
+    // Black Hole control panel (index 0) - 放在最前面
     circleControl = new ControlPanel();
     controlStack->addWidget(circleControl);
+    
+    // Basic control panel (index 1)
+    basicControl = new BasicControlPanel();
+    controlStack->addWidget(basicControl);
     
     // Multi-Pass control panel (index 2)
     multiPassControl = new MultiPassControlPanel();
@@ -326,15 +326,34 @@ void MainWindow::applyStyles() {
         );
     }
     
-    // 新增渲染结果复选框样式
-    QCheckBox* showRenderCheck = circleControl->findChild<QCheckBox*>("showRenderResultCheck");
-    if (showRenderCheck) {
-        showRenderCheck->setStyleSheet(
-            "QCheckBox { color: #e0e0e0; }"
-            "QCheckBox::indicator { width: 16px; height: 16px; }"
-            "QCheckBox::indicator:unchecked { background-color: #3a3a4a; border: 1px solid #5a5a6a; }"
-            "QCheckBox::indicator:checked { background-color: #6a6a8a; border: 1px solid #8888aa; }"
-        );
+    // 为所有复选框设置统一的新样式
+    QString checkboxStyle = 
+        "QCheckBox {"
+        "   color: #e0e0e0;"
+        "   font-size: 13px;"
+        "   padding: 8px 0;"
+        "}"
+        "QCheckBox::indicator {"
+        "   width: 22px;"
+        "   height: 22px;"
+        "   border-radius: 5px;"
+        "}"
+        "QCheckBox::indicator:unchecked {"
+        "   background-color: #3a3a4a;"
+        "   border: 2px solid #5a5a6a;"
+        "}"
+        "QCheckBox::indicator:checked {"
+        "   background-color: #6a6a8a;"
+        "   border: 2px solid #8888aa;"
+        "   image: url(:/icons/checkmark.svg);"  // 可选：添加对勾图标
+        "}"
+        "QCheckBox::indicator:hover {"
+        "   border: 2px solid #7a7a9a;"
+        "}";
+    
+    // 应用样式到所有复选框
+    for (QCheckBox* checkbox : circleControl->findChildren<QCheckBox*>()) {
+        checkbox->setStyleSheet(checkboxStyle);
     }
     
     // Footer styles

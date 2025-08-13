@@ -52,22 +52,22 @@ private:
     QOpenGLShaderProgram* screenProgram = nullptr;
     
     // Mipmap resources
-    bool showMipmap = false;
+    bool showMipmap = true;
     QOpenGLShaderProgram* mipmapProgram = nullptr;
     QOpenGLFramebufferObject* mipmapFBO = nullptr;
     
     // horizontal resources
-    bool horizontal = false;
+    bool horizontal = true;
     QOpenGLShaderProgram* horizontalProgram = nullptr;
     QOpenGLFramebufferObject* horizontalFBO = nullptr;
 
     // vertical resources
-    bool vertical = false;
+    bool vertical = true;
     QOpenGLShaderProgram* verticalProgram = nullptr;
     QOpenGLFramebufferObject* verticalFBO = nullptr;
     QElapsedTimer frameTimer;
 
-    bool result = false;
+    bool result = true;
     QOpenGLShaderProgram* resultProgram = nullptr;
     float lastFrameTime = 0.0f;
 
@@ -76,7 +76,7 @@ private:
     QVector2D offset{0.2f, 0.2f};
     float radius = 0.2f;
     float blackHoleMass = 1.49e7f;
-    int backgroundType = 0;
+    int backgroundType = 1;
     QVector3D chessTextureResolution{64.0f, 64.0f, 0.0f};
     
     // Shadertoy-like variables
