@@ -1,0 +1,21 @@
+# Build output
+build/
+out/
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+*.sln.docstates
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Qt
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.pro.user

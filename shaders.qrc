@@ -1,0 +1,18 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+    <file>shaders/circle.frag</file>
+    <file>shaders/circle.vert</file>
+    <file>shaders/basic.frag</file>
+    <file>shaders/basic.vert</file>
+    <file>shaders/multipass.vert</file>
+    <file>shaders/multipass_circle.frag</file>
+    <file>shaders/multipass_composite.frag</file>
+    <file>shaders/screen.vert</file>
+    <file>shaders/screen.frag</file>
+    <file>shaders/mipmap.frag</file>
+    <file>shaders/horizontal.frag</file>
+    <file>shaders/vertical.frag</file>
+    <file>shaders/screen_result.frag</file>
+</qresource>
+</RCC>
