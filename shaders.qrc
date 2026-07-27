@@ -14,5 +14,11 @@
     <file>shaders/horizontal.frag</file>
     <file>shaders/vertical.frag</file>
     <file>shaders/screen_result.frag</file>
+    <file>shaders/kerr/screen.vert</file>
+    <file>shaders/kerr/kerr_a.frag</file>
+    <file>shaders/kerr/kerr_b.frag</file>
+    <file>shaders/kerr/kerr_c.frag</file>
+    <file>shaders/kerr/kerr_d.frag</file>
+    <file>shaders/kerr/kerr_image.frag</file>
 </qresource>
 </RCC>

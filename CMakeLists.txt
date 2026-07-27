@@ -42,10 +42,12 @@ add_executable(${PROJECT_NAME}
     tabs/controlpanel.h
     tabs/basiccontrolpanel.h
     tabs/multipasscontrolpanel.h
+    tabs/kerrcontrolpanel.h
     glwidget/glcirclewidget.h
     glwidget/glbasicwidget.h
     glwidget/glmultipasswidget.h
     glwidget/GL2DLensingWidget.h
+    glwidget/kerrwidget.h
     tabs/LensingControlPanel.h
 
     tabs/controlpanel.cpp
@@ -55,6 +57,8 @@ add_executable(${PROJECT_NAME}
     glwidget/glbasicwidget.cpp
     glwidget/glmultipasswidget.cpp
     glwidget/GL2DLensingWidget.cpp
+    glwidget/kerrwidget.cpp
+    tabs/kerrcontrolpanel.cpp
     tabs/LensingControlPanel.cpp
 
     mainwindow.cpp

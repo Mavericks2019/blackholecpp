@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     // 初始化新增的指针
     lensingCanvas = nullptr;
     lensingControl = nullptr;
+    kerrCanvas = nullptr;
+    kerrControl = nullptr;
     
     setWindowTitle("OpenGL Demo - Dark Theme");
     resize(2700, 1800);
@@ -119,6 +121,8 @@ MainWindow::~MainWindow() {
     delete multiPassControl;
     delete lensingCanvas;
     delete lensingControl;
+    delete kerrCanvas;
+    delete kerrControl;
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
@@ -138,6 +142,10 @@ void MainWindow::closeEvent(QCloseEvent* event) {
     if (lensingCanvas) {
         lensingCanvas->makeCurrent();
         lensingCanvas->doneCurrent();
+    }
+    if (kerrCanvas) {
+        kerrCanvas->makeCurrent();
+        kerrCanvas->doneCurrent();
     }
     QMainWindow::closeEvent(event);
 }
@@ -165,6 +173,9 @@ void MainWindow::showEvent(QShowEvent* event) {
     if (lensingCanvas) {
         lensingCanvas->update();
     }
+    if (kerrCanvas) {
+        kerrCanvas->update();
+    }
 }
 
 void MainWindow::onTabChanged(int index) {
@@ -174,13 +185,16 @@ void MainWindow::onTabChanged(int index) {
         case 0: // Black Hole
             if (circleCanvas) circleCanvas->update();
             break;
-        case 1: // 2D引力透镜 - 新增
+        case 1: // 2D引力透镜
             if (lensingCanvas) lensingCanvas->update();
             break;
-        case 2: // Basic
+        case 2: // Kerr Black Hole
+            if (kerrCanvas) kerrCanvas->update();
+            break;
+        case 3: // Basic
             if (basicCanvas) basicCanvas->update();
             break;
-        case 3: // Multi-Pass
+        case 4: // Multi-Pass
             if (multiPassCanvas) multiPassCanvas->update();
             break;
     }
@@ -215,14 +229,21 @@ void MainWindow::createTabs() {
     circleLayout->addWidget(circleCanvas);
     tabWidget->addTab(circleTab, "Black Hole Demo");
     
-    // 2D引力透镜 tab (index 1) - 改为英文
+    // 2D引力透镜 tab (index 1)
     QWidget* lensingTab = new QWidget();
     QVBoxLayout* lensingLayout = new QVBoxLayout(lensingTab);
     lensingCanvas = new GL2DLensingWidget();
     lensingLayout->addWidget(lensingCanvas);
-    tabWidget->addTab(lensingTab, "2D Lensing");  // 改为英文
-    
-    // Basic Demo tab (index 2)
+    tabWidget->addTab(lensingTab, "2D Lensing");
+
+    // Kerr Black Hole tab (index 2)
+    QWidget* kerrTab = new QWidget();
+    QVBoxLayout* kerrLayout = new QVBoxLayout(kerrTab);
+    kerrCanvas = new KerrWidget();
+    kerrLayout->addWidget(kerrCanvas);
+    tabWidget->addTab(kerrTab, "Kerr Black Hole");
+
+    // Basic Demo tab (index 3)
     QWidget* basicTab = new QWidget();
     QVBoxLayout* basicLayout = new QVBoxLayout(basicTab);
     basicCanvas = new GLBasicWidget();
@@ -242,11 +263,15 @@ void MainWindow::createControlPanels() {
     circleControl = new ControlPanel();
     controlStack->addWidget(circleControl);
     
-    // 新增：2D引力透镜控制面板 (index 1)
+    // 2D引力透镜控制面板 (index 1)
     lensingControl = new LensingControlPanel();
     controlStack->addWidget(lensingControl);
-    
-    // Basic control panel (index 2)
+
+    // Kerr Black Hole control panel (index 2)
+    kerrControl = new KerrControlPanel();
+    controlStack->addWidget(kerrControl);
+
+    // Basic control panel (index 3)
     basicControl = new BasicControlPanel();
     controlStack->addWidget(basicControl);
     
@@ -286,13 +311,23 @@ void MainWindow::connectSignals() {
     connect(circleControl, &ControlPanel::showRenderResultChanged,
             circleCanvas, &GLCircleWidget::setShowRenderResult);
     
-    // 新增：2D引力透镜控制信号
+    // 2D引力透镜控制信号
     connect(lensingControl, &LensingControlPanel::clearRaysRequested,
             lensingCanvas, &GL2DLensingWidget::clearRays);
-    
+
     connect(lensingControl, &LensingControlPanel::addSampleRaysRequested,
             lensingCanvas, &GL2DLensingWidget::initializeRays);
-    
+
+    // Kerr Black Hole control signals
+    connect(kerrControl, &KerrControlPanel::bloomChanged,
+            kerrCanvas, &KerrWidget::setShowBloom);
+    connect(kerrControl, &KerrControlPanel::taaChanged,
+            kerrCanvas, &KerrWidget::setShowTAA);
+    connect(kerrControl, &KerrControlPanel::resetCameraClicked,
+            kerrCanvas, &KerrWidget::resetCamera);
+    connect(kerrCanvas, &KerrWidget::fpsUpdated,
+            kerrControl, &KerrControlPanel::setFPS);
+
     // Initial aspect ratio update
     if (circleCanvas) {
         circleCanvas->updateAspectRatio();
@@ -310,11 +345,16 @@ void MainWindow::applyStyles() {
         "background-color: #2d2d3a; border-radius: 8px; border: 1px solid #3a3a4a;"
     );
     
-    // 新增：Apply 2D引力透镜控制面板样式
+    // 2D引力透镜控制面板样式
     lensingControl->setStyleSheet(
         "background-color: #2d2d3a; border-radius: 8px; border: 1px solid #3a3a4a;"
     );
-    
+
+    // Kerr Black Hole control panel style
+    kerrControl->setStyleSheet(
+        "background-color: #2d2d3a; border-radius: 8px; border: 1px solid #3a3a4a;"
+    );
+
     // Apply Multi-Pass control panel style
     multiPassControl->setStyleSheet(
         "background-color: #2d2d3a; border-radius: 8px; border: 1px solid #3a3a4a;"

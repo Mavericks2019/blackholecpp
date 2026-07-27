@@ -15,6 +15,10 @@
 #include "glwidget/GL2DLensingWidget.h"
 #include "tabs/LensingControlPanel.h"
 
+// Kerr Black Hole
+#include "glwidget/kerrwidget.h"
+#include "tabs/kerrcontrolpanel.h"
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
@@ -55,6 +59,10 @@ private:
     // Multi-Pass Demo
     GLMultiPassWidget* multiPassCanvas = nullptr;
     MultiPassControlPanel* multiPassControl = nullptr;
+
+    // Kerr Black Hole Demo
+    KerrWidget* kerrCanvas = nullptr;
+    KerrControlPanel* kerrControl = nullptr;
 };
 
 #endif // MAINWINDOW_H
